@@ -1,0 +1,89 @@
+
+h1 {
+  font-size: 28px;
+  font-family: 'Dancing Script', cursive;
+  text-align: center;
+    margin: 0;
+}
+
+h2 {
+  font-size: 17px;
+  font-family: 'Josefin Slab', serif;
+  margin: 0;
+  text-align: center;
+}
+
+h1,h2 {
+  color: black;
+}
+
+.container {
+  background: white;
+         width: 80%;
+         margin: auto;
+         border-radius: 2px;
+         box-shadow: 7px 10px 30px black;
+         margin-top: 50px;
+         margin-bottom: 50px;
+         padding-bottom: 50px;
+}
+
+
+.days-container_day{
+  padding: 10px 0 10px 0;
+}
+
+.addButton {
+  background-color: #aaf0d1;
+  margin: 30px;
+  font-size: 35px;
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
+   cursor: pointer;
+}
+
+.subheader {
+  font-size: 30px;
+  font-weight: 300;
+    width: 120px;
+}
+
+ul {
+      color: black;
+  padding-left: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.calendar {
+  margin-top: 0;
+  display: flex;
+  padding: 0 20px;
+}
+
+.meal-types {
+  display: flex;
+  margin: 0;
+  margin-left: 233px;
+  padding: 20px 0px 20px 0px;
+}
+
+.icon-grid ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.add-meal-btn {
+  width: 50px;
+  margin: 0 auto;
+}
+
+.icon-grid {
+  flex: 1;
+}
