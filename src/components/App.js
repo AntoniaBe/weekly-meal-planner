@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../style/App.css';
-import WeeklyMealPage from './WeeklyMealPage';
+import Card from './Card';
+import * as moment from 'moment';
 class App extends Component {
 
 
@@ -26,13 +27,32 @@ class App extends Component {
     console.log('It\'s currently week ' + result[1] + ' of ' + result[0]);
         console.log('Next week is ' + nextResult + ' of ' + result[0]);
 
+    const startOfWeek = moment().startOf('isoWeek');
+    const endOfWeek = moment().endOf('isoWeek');
+
+    const days = [];
+    let day = startOfWeek;
+
+      while (day <= endOfWeek) {
+        days.push({day: day.format('dddd').toString(), date:day.format("Do MMMM YYYY").toString(), });
+        day = day.clone().add(1, 'd');
+      }
+        console.log(days);
+
+
     return (
       <div className="App">
         <header className="App-header">
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-                <WeeklyMealPage/>
+          <div className="card_container">
+            {days.map((data, idx) =>
+                <Card key={idx} weekday={data.day} weekdayDate={data.date}/>
+            )}
+            <Card/>
+          </div>
+
         </header>
       </div>
     );

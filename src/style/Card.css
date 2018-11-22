@@ -1,0 +1,62 @@
+h1 {
+  font-size: 28px;
+  font-family: 'Dancing Script', cursive;
+  text-align: center;
+  margin: 0;
+  color: black;
+    padding: 10px;
+}
+
+h2 {
+  font-size: 17px;
+  font-family: 'Josefin Slab', serif;
+  margin: 0;
+  text-align: center;
+  color: black;
+  padding: 10px;
+}
+
+
+.card {
+  width: 320px;
+  background-color: #aaf0d1;
+  position: relative;
+  margin-bottom: 20px;
+  padding-bottom: 30px;
+  text-decoration: none;
+  -moz-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+
+  .card {
+width: 80%;
+    }
+}
+
+@media (min-width: 700px){
+.card {
+
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+}
+
+
+.card_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+
+.card_info_meal_info {
+
+}
