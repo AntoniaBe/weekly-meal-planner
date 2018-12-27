@@ -43,17 +43,19 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
+          <h1>
+            Weekly Meal Planner
+          </h1>
+          <h2>
+            Week {result[1]}
+          </h2>
+        </header>
           <div className="card_container">
             {days.map((data, idx) =>
-                <Card key={idx} weekday={data.day} weekdayDate={data.date}/>
+                <Card key={idx} weekday={data.day} weekdayDate={data.date} isWeekday={true}/>
             )}
-            <Card/>
+            <Card isWeekday={false}/>
           </div>
-
-        </header>
       </div>
     );
   }
