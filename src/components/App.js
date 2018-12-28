@@ -5,6 +5,11 @@ import * as moment from 'moment';
 class App extends Component {
 
 
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
   getWeekNumber(d) {
     // Copy date so don't modify original
@@ -19,6 +24,7 @@ class App extends Component {
     // Return array of year and week number
     return [d.getUTCFullYear(), weekNo];
 }
+
 
   render() {
 
@@ -56,6 +62,7 @@ class App extends Component {
             )}
             <Card isWeekday={false}/>
           </div>
+
       </div>
     );
   }

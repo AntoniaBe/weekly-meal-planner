@@ -16,6 +16,10 @@ h2 {
     margin: 0;
 }
 
+button:focus {
+outline:none;
+}
+
 .App-header {
   margin-top: 80px;
   margin-bottom: 55px;
