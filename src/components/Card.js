@@ -15,7 +15,7 @@ class Card extends Component {
     this.state = {
       isSearchFoodModalOpen: false,
       foodSearchInput: '',
-      food: null,
+      recipes: null,
     };
   }
 
@@ -31,7 +31,7 @@ class Card extends Component {
   closeSearchFoodModal = () => {
   this.setState(() => ({
     isSearchFoodModalOpen: false,
-    food: null,
+    recipes: null,
     foodSearchInput: '',
   }));
   };
@@ -50,15 +50,15 @@ class Card extends Component {
     this.setState(() => ({ loading: true }));
 
     fetchRecipes(this.state.foodSearchInput)
-      .then((food) => this.setState(() => ({
-        food,
+      .then((recipes) => this.setState(() => ({
+        recipes,
         loading: false,
       })));
   };
 
   render() {
     const {weekday, weekdayDate, isWeekday} = this.props;
-    const {food, isSearchFoodModalOpen, loading } = this.state;
+    const {recipes, isSearchFoodModalOpen, loading } = this.state;
 
     const mealType = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
 
@@ -66,7 +66,7 @@ class Card extends Component {
 
     isMeal = false;
 
-  console.log(food);
+  console.log(recipes);
     return (
       <div className="card-container">
       <div className="card">
@@ -94,7 +94,7 @@ class Card extends Component {
                 }
               </div>
             </div>
-          : <div className="card_randomRecipe">hello im a random recipe</div>
+          : <div className="card_add-Recipe">Add a Recipe!</div>
       }
     </div>
 
@@ -104,7 +104,7 @@ class Card extends Component {
       onClose={this.closeSearchFoodModal}
       searchFood={this.searchFood}
       onInputChange={this.onInputChange}
-      recipes={food}
+      recipes={recipes}
       loading={loading}
       />
     </div>

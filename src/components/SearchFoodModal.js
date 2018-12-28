@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import ReactModal from 'react-modal';
 import '../style/Modal.scss';
 import '../style/SearchFoodModal.scss';
-import loading from '../assets/loading.gif';
 import {IoIosSearch, IoMdClose} from "react-icons/io";
 
 class SearchFoodModal extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
   }
 
   render() {
@@ -62,7 +62,7 @@ class SearchFoodModal extends Component {
                   ? ''
                   : recipes.length === 0
                     ? <p>Sorry, we  couldn't find any recipes for this search. Try again!</p>
-                    : recipes.map((recipe, index) => (<div className='search-food-results_item' key={index}>
+                    : recipes.map((recipe, index) => (<div onClick={(e) =>  console.log('[recipe] onClick', recipe)}  className='search-food-results_item' key={index}>
                       <div className='search-food-results_item_title'>
                         <h3>{recipe.label}</h3>
                       </div>
