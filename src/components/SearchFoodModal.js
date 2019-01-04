@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import ReactModal from 'react-modal';
 import '../style/Modal.scss';
 import '../style/SearchFoodModal.scss';
+import AccordionContainer from './AccordionContainer';
 import {IoIosSearch, IoMdClose} from "react-icons/io";
 
 class SearchFoodModal extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
@@ -51,39 +51,38 @@ class SearchFoodModal extends Component {
       </div>
       {
         loading
-          ?
-          <div className='loading-container'>
-          <img src={require('../assets/loading.gif')} alt="loading..." />
-          </div>
-            :
-            <div className='search-food-results'>
-              {
-                recipes === null
-                  ? ''
-                  : recipes.length === 0
-                    ? <p>Sorry, we  couldn't find any recipes for this search. Try again!</p>
-                    : recipes.map((recipe, index) => (<div onClick={(e) =>  console.log('[recipe] onClick', recipe)}  className='search-food-results_item' key={index}>
-                      <div className='search-food-results_item_title'>
-                        <h3>{recipe.label}</h3>
+          ? <div className='loading-container'>
+              <img src={require('../assets/loading.gif')} alt="loading..."/>
+            </div>
+          : <div className='search-food-results'>
+            {
+              recipes === null
+                ? ''
+                : recipes.length === 0
+                  ? <p>Sorry, we couldn't find any recipes for this search. Try again!</p>
+                  : recipes.map((recipe, index) => (<div className='search-food-results_item' key={index}>
+                    <div className='search-food-results_item_title'>
+                      <h3>{recipe.label}</h3>
+                    </div>
+                    <img src={recipe.image} alt={recipe.label}/>
+                    <div className='search-food-results_item_infos'>
+                      <p className='search-food-results_item_infos_dietLabel'>{recipe.dietLabels.join(", ")}
+                      </p>
+                      <div className='search-food-results_item_infos_calories_preptime'>
+                        <p>{Math.floor(recipe.calories)}
+                          Calories</p>
+                        <p>{randomPrepTime[Math.floor(Math.random() * randomPrepTime.length)]}
+                          Minutes</p>
                       </div>
-                      <img src={recipe.image} alt={recipe.label}/>
-                      <div className='search-food-results_item_infos'>
-                        <p className='search-food-results_item_infos_dietLabel'>{recipe.dietLabels.join(", ")}
-                        </p>
-                        <div className='search-food-results_item_infos_calories_preptime'>
-                          <p>{Math.floor(recipe.calories)}
-                            Calories</p>
-                          <p>{randomPrepTime[Math.floor(Math.random() * randomPrepTime.length)]}
-                            Minutes</p>
-                        </div>
-                        <div className='search-food-results_item_infos_healthLabels'>{recipe.healthLabels.map(i => '#' + i).reduce((prev, curr) => [prev, ', ', curr])}</div>
-                      </div>
-                    </div>))
-              }
+                      <div className='search-food-results_item_infos_healthLabels'>{recipe.healthLabels.map(i => '#' + i).reduce((prev, curr) => [prev, ', ', curr])}</div>
+                      <AccordionContainer ingredients={recipe.ingredients} nutrients={recipe.digest}/>
+                    </div>
+                  </div>))
+            }
 
             </div>
-            }
-    </ReactModal>)
+      }
+      </ReactModal>)
 
   }
 

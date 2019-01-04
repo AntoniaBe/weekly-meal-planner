@@ -5,7 +5,7 @@
   height: 50%;
 
   img {
-    width: 150px;
+    width: 150px !important;;
   }
 }
 
@@ -55,7 +55,7 @@
     text-align: center;
 
     .search-food-results_item_title {
-      height: 70px;
+      height: 102px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -74,8 +74,13 @@
       background-size: cover;
     }
 
+    .search-food-results_item_infos {
+      padding-top: 5px;
+    }
+
     .search-food-results_item_infos_dietLabel {
       color: rgba(255,127,80,1);
+      height: 31px;
     }
 
     .search-food-results_item_infos_calories_preptime {
@@ -85,6 +90,13 @@
 
     .search-food-results_item_infos_healthLabels {
       color: grey;
+      text-transform: lowercase;
+      height: 42px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      margin-bottom: 10px;
+
     }
 
     .search-food-results_item_infos_calories_preptime p:last-child {
