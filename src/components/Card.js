@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { addRecipe } from "../actions";
+import { connect } from 'react-redux';
 import '../style/Card.scss';
 import SearchFoodModal from './SearchFoodModal';
 import { fetchRecipes } from '../utils/apiCall';
@@ -57,7 +59,7 @@ class Card extends Component {
   };
 
   render() {
-    const {weekday, weekdayDate, isWeekday} = this.props;
+    const {weekday, weekdayDate, isWeekday, selectRecipe, recipe} = this.props;
     const {recipes, isSearchFoodModalOpen, loading } = this.state;
 
     const mealType = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
@@ -66,7 +68,11 @@ class Card extends Component {
 
     isMeal = false;
 
-  console.log(recipes);
+
+
+    console.log("recipe " + recipe);
+
+
     return (
       <div className="card-container">
       <div className="card">
@@ -82,13 +88,14 @@ class Card extends Component {
                   mealType.map(mealType => <div key={mealType} className="card_info_type">
                     <p>{mealType}</p>
                     {
-                      !isMeal
-                        ? <div className='add-meal-btn'>
-                            <button onClick={() => this.openSearchFoodModal()} className="addButton"><MdAdd size={30}/></button>
+                      recipe
+                        ? <div>
+                        <img className="Imageeee" alt="" src={recipe.image}/>
                           </div>
-                        : <div>
-                            <img alt="" src="http://3.bp.blogspot.com/-3qtfXtEYEnU/T4h2XzL19FI/AAAAAAAADEo/1oS1ncBvD3M/s1600/DSCN4013.JPG"/>
-                          </div>
+                        :
+                        <div className='add-meal-btn'>
+                          <button onClick={() => this.openSearchFoodModal()} className="addButton"><MdAdd size={30}/></button>
+                        </div>
                     }
                   </div>)
                 }
@@ -106,10 +113,23 @@ class Card extends Component {
       onInputChange={this.onInputChange}
       recipes={recipes}
       loading={loading}
+      selectRecipe={selectRecipe}
       />
     </div>
   )
   }
 }
 
-export default Card;
+
+const mapStateToProps = state  => {
+
+
+    return {
+        recipe: state.addRecipe.recipe,
+    }
+}
+const mapDispatchToProps = (dispatch) => ({
+  selectRecipe: (data) => dispatch(addRecipe(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
