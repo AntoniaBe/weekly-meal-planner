@@ -5,6 +5,7 @@ import '../style/Card.scss';
 import SearchFoodModal from './SearchFoodModal';
 import { fetchRecipes } from '../utils/apiCall';
 import {MdAdd} from "react-icons/md";
+import Cookies from 'universal-cookie';
 require('typeface-dancing-script');
 
 
@@ -18,14 +19,19 @@ class Card extends Component {
       isSearchFoodModalOpen: false,
       foodSearchInput: '',
       recipes: null,
+      mealType: '',
+      weekday: ''
     };
   }
 
 
-  openSearchFoodModal = () => {
+  openSearchFoodModal = (mealType, weekday ) => {
+    console.log("Before", mealType, weekday);
     this.setState(() => ({
       isSearchFoodModalOpen: true,
-      foodSearchInput: ''
+      foodSearchInput: '',
+      mealType: mealType,
+      weekday: weekday,
     }));
   };
 
@@ -35,6 +41,8 @@ class Card extends Component {
     isSearchFoodModalOpen: false,
     recipes: null,
     foodSearchInput: '',
+    mealType: null,
+    weekday: 'unset',
   }));
   };
 
@@ -58,6 +66,18 @@ class Card extends Component {
       })));
   };
 
+  fillMeals(weekday, mealType){
+    const cookies = new Cookies();
+    let meals = {}
+    mealType.forEach(function(element){
+      console.log("Cookie:");
+      console.log(cookies.get(weekday+"-"+element));
+      console.log("CookieName:"+weekday+"-"+element);
+      meals[element] = cookies.get(weekday+"-"+element);
+    })
+    return meals;
+  }
+
   render() {
     const {weekday, weekdayDate, isWeekday, selectRecipe, recipe} = this.props;
     const {recipes, isSearchFoodModalOpen, loading } = this.state;
@@ -68,10 +88,8 @@ class Card extends Component {
 
     isMeal = false;
 
-
-
-    console.log("recipe " + recipe);
-
+    let meals = this.fillMeals(weekday, mealType);
+    console.log(meals);
 
     return (
       <div className="card-container">
@@ -85,16 +103,17 @@ class Card extends Component {
               </div>
               <div className="card_info">
                 {
-                  mealType.map(mealType => <div key={mealType} className="card_info_type">
-                    <p>{mealType}</p>
+                  mealType.map(meal =>
+                    <div key={meal} className="card_info_type">
+                    <p>{meal}</p>
                     {
-                      recipe
+                      meals[meal]
                         ? <div>
-                        <img className="Imageeee" alt="" src={recipe.image}/>
+                        <img className="Imageeee" alt="" src={meals[meal].src}/>
                           </div>
                         :
                         <div className='add-meal-btn'>
-                          <button onClick={() => this.openSearchFoodModal()} className="addButton"><MdAdd size={30}/></button>
+                          <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="addButton"><MdAdd size={30}/></button>
                         </div>
                     }
                   </div>)
@@ -114,6 +133,8 @@ class Card extends Component {
       recipes={recipes}
       loading={loading}
       selectRecipe={selectRecipe}
+      weekday={this.state.weekday}
+      mealType={this.state.mealType}
       />
     </div>
   )

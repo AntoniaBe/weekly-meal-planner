@@ -6,7 +6,6 @@ import {
 export default function recipeReducer(state = {
     recipe: '',
 }, action) {
-    console.log(action.recipe);
     switch (action.type) {
 
         case ADD_RECIPE:
