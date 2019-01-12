@@ -5,6 +5,7 @@ import '../style/SearchFoodModal.scss';
 import FoodResultList from './FoodResultList';
 import {IoIosSearch, IoMdClose} from "react-icons/io";
 import Cookies from 'universal-cookie';
+import * as moment from 'moment';
 
 
 
@@ -12,7 +13,9 @@ class SearchFoodModal extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      dateExpire: moment().endOf('isoWeek')
+    };
   }
 
   render() {
@@ -59,11 +62,8 @@ class SearchFoodModal extends Component {
                       src: recipe.image
                     };
                     const cookies = new Cookies();
-                    console.log("After", mealType);
-                    cookies.set(weekday+"-"+mealType, data, { path: '/' });
-                    console.log("CookieFunction:");
-                    console.log(cookies.get(weekday+"-"+mealType));
-                    console.log("CookieNameFunction:"+weekday+"-"+mealType);
+                    cookies.remove(weekday+"-"+mealType);
+                    cookies.set(weekday+"-"+mealType, data, { path: '/', expires: this.state.dateExpire.toDate()});
                   }}/>
             }
 

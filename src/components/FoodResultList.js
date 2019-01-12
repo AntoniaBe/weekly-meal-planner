@@ -44,9 +44,9 @@ class FoodResultList extends Component {
                       </p>
                       <div className='search-food-results_item_infos_calories_preptime'>
                         <p>{Math.floor(recipe.calories)}
-                          Calories</p>
+                          &nbsp; Calories</p>
                         <p>{randomPrepTime[Math.floor(Math.random() * randomPrepTime.length)]}
-                          Minutes</p>
+                          &nbsp; Minutes</p>
                       </div>
                       <div className='search-food-results_item_infos_healthLabels'>{recipe.healthLabels.map(i => '#' + i).reduce((prev, curr) => [prev, ', ', curr])}</div>
                       <AccordionContainer ingredients={recipe.ingredients} nutrients={recipe.digest}/>

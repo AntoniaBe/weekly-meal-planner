@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import '../style/Card.scss';
 import SearchFoodModal from './SearchFoodModal';
 import { fetchRecipes } from '../utils/apiCall';
-import {MdAdd} from "react-icons/md";
+import {MdAdd, MdCached, MdRemoveCircle, MdKitchen, MdClear, MdInfo, MdShoppingCart} from "react-icons/md";
 import Cookies from 'universal-cookie';
 require('typeface-dancing-script');
 
@@ -70,12 +70,16 @@ class Card extends Component {
     const cookies = new Cookies();
     let meals = {}
     mealType.forEach(function(element){
-      console.log("Cookie:");
-      console.log(cookies.get(weekday+"-"+element));
-      console.log("CookieName:"+weekday+"-"+element);
       meals[element] = cookies.get(weekday+"-"+element);
     })
     return meals;
+  }
+
+  removeRecipe(meal, weekday){
+    const cookies = new Cookies();
+    console.log("Before:", cookies.get(weekday+"-"+meal));
+    cookies.remove(weekday+"-"+meal)
+    console.log("After:", cookies.get(weekday+"-"+meal));
   }
 
   render() {
@@ -110,6 +114,10 @@ class Card extends Component {
                       meals[meal]
                         ? <div>
                         <img className="Imageeee" alt="" src={meals[meal].src}/>
+                          <button onClick={() => this.removeRecipe(meal, weekday)} className="addButton"><MdClear size={20}/></button>
+                          <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="addButton"><MdCached size={20}/></button>
+                          <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="addButton"><MdInfo size={20}/></button>
+                          <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="addButton"><MdShoppingCart size={20}/></button>
                           </div>
                         :
                         <div className='add-meal-btn'>
