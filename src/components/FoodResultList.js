@@ -33,6 +33,7 @@ class FoodResultList extends Component {
 
 
     const { recipes, onSelect } = this.props;
+        console.log(recipes);
     return (
        recipes.map((recipe, index) => (<div className='search-food-results_item' key={index}>
                     <div className='search-food-results_item_title'>
@@ -44,9 +45,9 @@ class FoodResultList extends Component {
                       </p>
                       <div className='search-food-results_item_infos_calories_preptime'>
                         <p>{Math.floor(recipe.calories)}
-                          &nbsp; Calories</p>
-                        <p>{randomPrepTime[Math.floor(Math.random() * randomPrepTime.length)]}
-                          &nbsp; Minutes</p>
+                          &nbsp;Calories</p>
+                        <p>{recipe.totalTime}
+                          &nbsp;Minutes</p>
                       </div>
                       <div className='search-food-results_item_infos_healthLabels'>{recipe.healthLabels.map(i => '#' + i).reduce((prev, curr) => [prev, ', ', curr])}</div>
                       <AccordionContainer ingredients={recipe.ingredients} nutrients={recipe.digest}/>

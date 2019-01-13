@@ -18,6 +18,48 @@ class SearchFoodModal extends Component {
     };
   }
 
+  addCookieWeekday(recipe, weekday, onClose, mealType) {
+
+        console.log("weekday");
+      onClose();
+      let data = {
+          text: recipe.label,
+          image: recipe.image,
+          label: recipe.label,
+          totalTime: recipe.totalTime,
+          ingredients: recipe.ingredients,
+          shareLink: recipe.shareAs,
+          original: recipe.url
+      };
+      const cookies = new Cookies();
+      cookies.remove(weekday+"-"+mealType);
+      cookies.set(weekday+"-"+mealType, data, { path: '/', expires: this.state.dateExpire.toDate()});
+  }
+
+  addCookieBacklog(recipe, weekday, onClose) {
+      onClose();
+      let data = {
+        text: recipe.label,
+        image: recipe.image,
+        label: recipe.label,
+        totalTime: recipe.totalTime,
+        ingredients: recipe.ingredients,
+        shareLink: recipe.shareAs,
+        original: recipe.url
+      };
+      const cookies = new Cookies();
+      let cookie;
+      let size = recipe.label;
+        cookies.get(weekday)
+          ? cookie = cookies.get(weekday)
+          : cookie = {}
+
+      size = Object.keys(cookie).length;
+
+      cookie[size] = data;
+      cookies.set(weekday, cookie, { path: '/'});
+  }
+
   render() {
 
     const {
@@ -31,6 +73,11 @@ class SearchFoodModal extends Component {
       weekday,
       mealType
     } = this.props;
+
+    let isWeekday = true;
+      weekday === "Extra"
+       ? isWeekday = false
+       : isWeekday = true;
 
     return (
 
@@ -55,15 +102,9 @@ class SearchFoodModal extends Component {
                 : recipes.length === 0
                   ? <p>Sorry, we couldn't find any recipes for this search. Try again!</p>
                   : <FoodResultList recipes={recipes} onSelect={(recipe) => {
-                    selectRecipe({ recipe });
-                    onClose();
-                    let data = {
-                      uri: recipe.uri,
-                      src: recipe.image
-                    };
-                    const cookies = new Cookies();
-                    cookies.remove(weekday+"-"+mealType);
-                    cookies.set(weekday+"-"+mealType, data, { path: '/', expires: this.state.dateExpire.toDate()});
+                    isWeekday
+                    ? this.addCookieWeekday(recipe, weekday, onClose, mealType)
+                    : this.addCookieBacklog(recipe, weekday, onClose)
                   }}/>
             }
 

@@ -45,7 +45,7 @@ p {
   }
 }
 
-.card_weekday {
+.card_weekday, .card_backlog {
   padding: 10px;
 }
 
@@ -89,4 +89,65 @@ img {
 .add-meal-btn {
   width: 50px;
   margin: 0 auto;
+}
+
+.accordion-backlog > h3{
+  font-size: 15px;
+  color: black;
+}
+.card_info_backlog > .card_info > div {
+  flex-basis: 100%;
+}
+.recipeButton{
+  background-color: transparent;
+  color: white;
+  mix-blend-mode: difference;
+  height: 20px;
+  width: 25%;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0 2px rgba (0,0,0,0.3);
+  cursor: pointer;
+}
+.image_container{
+  position: relative;
+  text-align: center;
+}
+.recipe_menu_button{
+  padding-top: 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  bottom: 4px;
+}
+.return_button{
+  background-color: transparent;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0 2px rgba (0,0,0,0.3);
+}
+.card_detail, .card_link{
+  position: relative;
+}
+.button_container{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 4px;
+  color: black;
+}
+.label_container, .info_container{
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%);
+  background-color: rgba(0,0,0,0.6);
+  width: 100%;
+  padding: 4px;
+}
+.label_container > h3, .info_container > h3 {
+  color: white;
+}
+.ingredients{
+  text-align: left;
 }
