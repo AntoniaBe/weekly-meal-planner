@@ -83,6 +83,8 @@ class CardExtra extends Component {
 
     const recipeBacklog = this.getBacklog(weekday);
 
+    console.log(recipeBacklog);
+
     return (
       <div className="card-container">
       <div className="card">
@@ -94,13 +96,14 @@ class CardExtra extends Component {
               <div className="card_info_backlog">
                 <Accordion>
                   {
+                    recipeBacklog ?
                     Object.keys(recipeBacklog).map(key =>
                       <AccordionItem className="accordion-backlog" title={recipeBacklog[key].text}>
                         <div>
                           <button onClick={() => this.removeRecipe(key, weekday)} className="addButton"><MdClear size={20}/></button>
                         </div>
                       </AccordionItem>
-                    )
+                    ) : ''
                   }
                 </Accordion>
                 <button onClick={() => this.openSearchFoodModal(weekday)} className="addButton"><MdAdd size={30}/></button>
