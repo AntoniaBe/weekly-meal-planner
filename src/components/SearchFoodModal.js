@@ -32,7 +32,7 @@ class SearchFoodModal extends Component {
           shareLink: recipe.shareAs,
           original: recipe.url
       };
-    
+
       const cookies = new Cookies();
       cookies.remove(weekday+"-"+mealType);
       cookies.set(weekday+"-"+mealType, data, { path: '/', expires: this.state.dateExpire.toDate()});
@@ -74,7 +74,6 @@ class SearchFoodModal extends Component {
       searchFood,
       recipes,
       loading,
-      selectRecipe,
       weekday,
       mealType
     } = this.props;

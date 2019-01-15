@@ -12,25 +12,6 @@ class FoodResultList extends Component {
   }
 
   render() {
-    const randomPrepTime = [
-      30,
-      120,
-      60,
-      40,
-      10,
-      180,
-      45,
-      115,
-      100,
-      80,
-      90,
-      15,
-      20,
-      30,
-      35,
-      55
-    ];
-
 
     const { recipes, onSelect } = this.props;
         console.log(recipes);

@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {addRecipe} from "../actions";
-import {connect} from 'react-redux';
 import '../style/Card.scss';
 import SearchFoodModal from './SearchFoodModal';
 import RecipeDetail from './RecipeDetail';
@@ -8,11 +6,8 @@ import {fetchRecipes} from '../utils/apiCall';
 import {
   MdAdd,
   MdCached,
-  MdRemoveCircle,
-  MdKitchen,
   MdClear,
   MdInfo,
-  MdShoppingCart,
   MdChevronRight,
   MdPublic,
   MdNearMe
@@ -86,7 +81,7 @@ class Card extends Component {
 
   removeRecipe(meal, weekday) {
     const cookies = new Cookies();
-    this.setState(() => ({isRecipeInfoOpen: true}));
+        this.setState(() => ({isRecipeInfoOpen: false}));
     cookies.remove(weekday + "-" + meal)
   }
 
@@ -115,14 +110,10 @@ class Card extends Component {
   }
 
   render() {
-    const {weekday, weekdayDate, selectRecipe, recipe} = this.props;
+    const {weekday, weekdayDate, selectRecipe} = this.props;
     const {recipes, isSearchFoodModalOpen, loading, isRecipeDetailPageOpen} = this.state;
 
     const mealType = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
-
-    let {isMeal} = this.props;
-
-    isMeal = false;
 
     let meals = this.fillMeals(weekday, mealType);
 
@@ -177,13 +168,13 @@ class Card extends Component {
                         </div>
                       </div>
                       <div className="info_details">
-                        <a href={this.state.selected.shareLink} target="_blank">
+                        <a href={this.state.selected.shareLink} target="edamam.com">
                           <button onClick={() => this.closeRecipeInfo()} className="return_button">
                             <MdPublic size={35}/>
                             Find more details on Edamam.com!
                           </button>
                         </a>
-                        <a href={this.state.selected.original} target="_blank">
+                        <a href={this.state.selected.original} target="original recipe">
                           <button onClick={() => this.closeRecipeInfo()} className="return_button">
                             <MdNearMe size={35}/>
                             Find the original recipe here!
@@ -239,16 +230,4 @@ class Card extends Component {
   }
 }
 
-// const mapStateToProps = state  => {
-//
-//
-//     return {
-//         recipe: state.addRecipe.recipe,
-//     }
-// }
-// const mapDispatchToProps = (dispatch) => ({
-//   selectRecipe: (data) => dispatch(addRecipe(data)),
-// });
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(Card);
 export default Card;

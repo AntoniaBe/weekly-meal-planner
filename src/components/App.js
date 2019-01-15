@@ -24,7 +24,7 @@ class App extends Component {
   render() {
 
     var result = this.getWeekNumber(new Date());
-    var nextResult = parseInt(result[1]) + 1;
+    //var nextResult = parseInt(result[1]) + 1;
 
     const startOfWeek = moment().startOf('isoWeek');
     const endOfWeek = moment().endOf('isoWeek');

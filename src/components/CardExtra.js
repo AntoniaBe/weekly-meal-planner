@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
-import { addRecipe } from "../actions";
-import { connect } from 'react-redux';
 import '../style/Card.scss';
 import SearchFoodModal from './SearchFoodModal';
 import { fetchRecipes } from '../utils/apiCall';
-import {MdAdd, MdCached, MdRemoveCircle, MdKitchen, MdClear, MdInfo, MdShoppingCart} from "react-icons/md";
+import {MdAdd, MdClear} from "react-icons/md";
 import Cookies from 'universal-cookie';
-import AccordionContainer from './AccordionContainer';
 import {Accordion, AccordionItem} from 'react-sanfona';
 require('typeface-dancing-script');
 
@@ -78,7 +75,7 @@ class CardExtra extends Component {
   }
 
   render() {
-    const {weekday, extra, extraPlus, selectRecipe, recipe} = this.props;
+    const {weekday, extra, extraPlus, selectRecipe } = this.props;
     const {recipes, isSearchFoodModalOpen, loading } = this.state;
 
     const recipeBacklog = this.getBacklog(weekday);
