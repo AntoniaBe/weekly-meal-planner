@@ -28,9 +28,11 @@ class SearchFoodModal extends Component {
           label: recipe.label,
           totalTime: recipe.totalTime,
           ingredients: recipe.ingredients,
+          id: recipe.uri.toString().split('recipe_')[1],
           shareLink: recipe.shareAs,
           original: recipe.url
       };
+    
       const cookies = new Cookies();
       cookies.remove(weekday+"-"+mealType);
       cookies.set(weekday+"-"+mealType, data, { path: '/', expires: this.state.dateExpire.toDate()});
@@ -45,8 +47,11 @@ class SearchFoodModal extends Component {
         totalTime: recipe.totalTime,
         ingredients: recipe.ingredients,
         shareLink: recipe.shareAs,
+        id: recipe.uri.toString().split('recipe_')[1],
         original: recipe.url
       };
+
+      console.log(data);
       const cookies = new Cookies();
       let cookie;
       let size = recipe.label;
