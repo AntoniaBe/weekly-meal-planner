@@ -30,7 +30,7 @@ class FoodResultList extends Component {
                         <p>{recipe.totalTime}
                           &nbsp;Minutes</p>
                       </div>
-                      <div className='search-food-results_item_infos_healthLabels'>{recipe.healthLabels.map(i => '#' + i).reduce((prev, curr) => [prev, ', ', curr])}</div>
+                      <div className='search-food-results_item_infos_healthLabels'>{recipe.healthLabels.length > 0 ? recipe.healthLabels.map(i => '#' + i).reduce((prev, curr) => [prev, ', ', curr]) : '' }</div>
                       <AccordionContainer ingredients={recipe.ingredients} nutrients={recipe.digest}/>
                       <button onClick={() => onSelect(recipe)}>Add Recipe</button>
                     </div>
