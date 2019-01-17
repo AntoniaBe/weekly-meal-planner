@@ -36,8 +36,10 @@ class Card extends Component {
     };
   }
 
-  openRecipeDetailPage = () => {
+  openRecipeDetailPage = (meal, weekday) => {
+     const cookies = new Cookies();
     this.setState(() => ({
+        selected: cookies.get(weekday+"-"+meal),
       isRecipeDetailPageOpen: true,
     }));
   };
@@ -88,7 +90,7 @@ class Card extends Component {
   openRecipeInfo(meal, weekday) {
     const cookies = new Cookies();
     this.setState(() => ({
-      isRecipeInfoOpen: true,
+      //isRecipeInfoOpen: true,
       selected: cookies.get(weekday + "-" + meal)
     }));
   }
@@ -149,9 +151,6 @@ class Card extends Component {
                         </li>)
                       }
                       </ul>
-                      <button onClick={() => this.openRecipeDetailPage()}>
-                        See more!
-                      </button>
                     </div>
                   </div>
                 : this.state.isRecipeInfoOpen
@@ -195,7 +194,7 @@ class Card extends Component {
                                       <MdClear size={20}/></button>
                                     <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="recipeButton">
                                       <MdCached size={20}/></button>
-                                    <button onClick={() => this.openRecipeInfo(meal, weekday)} className="recipeButton">
+                                    <button onClick={() => this.openRecipeDetailPage(meal, weekday)} className="recipeButton">
                                       <MdInfo size={20}/></button>
                                     <button onClick={() => this.openRecipeDetail(meal, weekday)} className="recipeButton">
                                       <img height="20" width="20" src={require('../assets/ingredients.svg')} alt="ingredients"/>

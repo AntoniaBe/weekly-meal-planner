@@ -19,8 +19,6 @@ class SearchFoodModal extends Component {
   }
 
   addCookieWeekday(recipe, weekday, onClose, mealType) {
-
-        console.log("weekday");
       onClose();
       let data = {
           text: recipe.label,
@@ -51,7 +49,6 @@ class SearchFoodModal extends Component {
         original: recipe.url
       };
 
-      console.log(data);
       const cookies = new Cookies();
       let cookie;
       let size = recipe.label;

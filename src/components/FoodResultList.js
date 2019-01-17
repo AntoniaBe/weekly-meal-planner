@@ -14,7 +14,6 @@ class FoodResultList extends Component {
   render() {
 
     const { recipes, onSelect } = this.props;
-        console.log(recipes);
     return (
        recipes.map((recipe, index) => (<div className='search-food-results_item' key={index}>
                     <div className='search-food-results_item_title'>
