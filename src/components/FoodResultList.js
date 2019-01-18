@@ -24,7 +24,7 @@ class FoodResultList extends Component {
                       <p className='search-food-results_item_infos_dietLabel'>{recipe.dietLabels.join(", ")}
                       </p>
                       <div className='search-food-results_item_infos_calories_preptime'>
-                        <p>{Math.floor(recipe.calories)}
+                        <p>{Math.ceil(recipe.calories)}
                           &nbsp;Calories</p>
                         <p>{recipe.totalTime}
                           &nbsp;Minutes</p>

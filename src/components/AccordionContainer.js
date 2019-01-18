@@ -22,7 +22,7 @@ class AccordionContainer extends Component {
             {nutrients.map((nutrient, index) => (
               <li className="accordion-list_item"key={index}>
                 <div className="nutrients-label">{nutrient.label}:</div>
-                <div>{Math.floor(nutrient.total)}{nutrient.unit}</div>
+                <div>{Math.ceil(nutrient.total)}{nutrient.unit}</div>
               </li>))}
           </ul>
         </div>

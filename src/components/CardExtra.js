@@ -80,8 +80,6 @@ class CardExtra extends Component {
 
     const recipeBacklog = this.getBacklog(weekday);
 
-    console.log(recipeBacklog);
-
     return (
       <div className="card-container">
       <div className="card">
