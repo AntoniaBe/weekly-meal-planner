@@ -28,7 +28,6 @@ class RecipeDetail extends Component {
 
     const {recipe} = this.state;
 
-    console.log(recipe);
     return (
 
       recipe === null

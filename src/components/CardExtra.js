@@ -18,6 +18,8 @@ class CardExtra extends Component {
     this.openShoppingListModal= this.openShoppingListModal.bind(this);
     this.closeShoppingListModal= this.closeShoppingListModal.bind(this);
     this.state = {
+      daySelected: '',
+      mealSelected: '',
       isSearchFoodModalOpen: false,
       isShoppingListModalOpen: false,
       foodSearchInput: '',
@@ -100,7 +102,6 @@ class CardExtra extends Component {
 			description: this.state.description
 		};
 
-		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
   }
 
@@ -150,7 +151,9 @@ class CardExtra extends Component {
                                 }
                             </select>
 
-
+                            <button className="btn btn-link float-left" onClick={console.log("oki")}>
+                              Clear form
+                            </button>
 
                           </form>
 

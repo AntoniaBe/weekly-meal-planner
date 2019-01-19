@@ -116,11 +116,10 @@ class Card extends Component {
     let data = cookies.get("shoppinglist");
     if(data === undefined || data.length == 0) data = []
     ingredients.forEach(function (element) {
+      element["checked"]=false;
       data.push(element);
     });
-    console.log(data);
     cookies.set("shoppinglist", data, { path: '/'});
-    console.log(cookies.get("shoppinglist"));
   }
 
   render() {
@@ -146,7 +145,7 @@ class Card extends Component {
                     <div className="label_container">
                       <div>
                         <h3 className="label_container-label">
-                          {this.state.selected.label}
+                          {this.state.selected.text}
                         </h3>
                       </div>
                       <div>
@@ -164,8 +163,8 @@ class Card extends Component {
                             </li>)
                         }
                       </ul>
-                      <button onClick={()=> this.addToShoppingList(this.state.selected.ingredients)} className="return_button">
-                        <MdChevronRight size={35} />
+                      <button onClick={()=> this.addToShoppingList(this.state.selected.ingredients)} className="add_to_list">
+                        Add ingredients to Shopping List
                       </button>
                     </div>
                   </div>

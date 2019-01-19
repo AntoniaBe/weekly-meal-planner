@@ -35,7 +35,6 @@ class SearchFoodModal extends Component {
   }
 
   addCookieBacklog(recipe, weekday, onClose) {
-      console.log(weekday);
       onClose();
       let data = {
         text: recipe.label,

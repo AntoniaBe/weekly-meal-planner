@@ -11,21 +11,33 @@ class ShoppingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      list: this.getShoppinglist(),
       empty: this.isShoppingListEmpty()
     };
   }
 
   getShoppinglist(){
-      const cookies = new Cookies();
-      return cookies.get("shoppinglist");
+    const cookies = new Cookies();
+    return cookies.get("shoppinglist");
   }
-
   isShoppingListEmpty(){
     const cookies = new Cookies();
     let shoppingList = cookies.get("shoppinglist");
     if(shoppingList === undefined || shoppingList.length == 0) return true
     return false;
   }
+  onChange = (e) => {
+    const target = e.target.value;
+    const cookies = new Cookies();
+    let data = cookies.get("shoppinglist");
+      data[target].checked
+        ? data[target].checked = false
+        : data[target].checked = true
+    this.setState(() => ({
+      list: data
+    }));
+    cookies.set("shoppinglist", data, { path: '/'});
+  };
 
   render() {
 
@@ -33,10 +45,6 @@ class ShoppingList extends Component {
       isOpen,
       onClose,
     } = this.props;
-
-    let list = this.getShoppinglist();
-    console.log("Inside");
-
     return (
       <Modal className='modal' open={isOpen} onClose={onClose} ariaHideApp={false}>
         {
@@ -47,15 +55,14 @@ class ShoppingList extends Component {
             : <div className="full_list">
                 <h1>Shopping List</h1>
                 <div className="shopping-container">
-                  <ul>
                     {
-                      Object.keys(list).map(item =>
-                        <li key={item} className="item">
-                          {list[item].text}
-                        </li>
+                      Object.keys(this.state.list).map(item =>
+                        <div key={item} className="item">
+                          <input className="form-checkbox" key={item} name="checked" onChange={this.onChange} value={item} checked={this.state.list[item].checked} type="checkbox" />
+                          {this.state.list[item].text}
+                        </div>
                       )
                     }
-                  </ul>
                 </div>
               </div>
         }

@@ -18,7 +18,6 @@ class WeeklyMealPage extends Component {
        days.push({day: day.format('dddd').toString(), date:day.format("Do MMMM YYYY").toString(), });
        day = day.clone().add(1, 'd');
      }
-     console.log(days);
 
 
   return(
