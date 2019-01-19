@@ -14,6 +14,8 @@
   align-items: center;
   justify-content: center;
   margin-top: 80px;
+  //padding: 20px;
+
 
   button {
     background-color: #aaf0d1;
@@ -24,7 +26,6 @@
 
   input {
     height: 30px;
-    width: 30%;
     font-size: 24px;
     padding-left: 10px;
   }
@@ -48,6 +49,8 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+   overflow: auto;
+  max-height: 670px;
 
   .search-food-results_item {
     padding: 10px 10px 30px;

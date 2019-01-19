@@ -1,0 +1,29 @@
+
+
+
+
+.recipe-detail-container {
+
+display: flex;
+flex-direction: column;
+//width: 800px !important;;
+
+
+.recipe-detail-container_first-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .recipe-detail-container_first-row_first-detail_label {
+    font-size: 38px;
+    text-align: center;
+  }
+    .recipe-detail-container_first-row_first-detail_image {
+      max-width: 350px;
+    }
+
+
+}
+
+
+}

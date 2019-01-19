@@ -93,7 +93,7 @@ class CardExtra extends Component {
                   {
                     recipeBacklog ?
                     Object.keys(recipeBacklog).map(key =>
-                      <AccordionItem className="accordion-backlog" title={recipeBacklog[key].text}>
+                      <AccordionItem key={key} className="accordion-backlog" title={recipeBacklog[key].text}>
                         <div>
                           <button onClick={() => this.removeRecipe(key, weekday)} className="addButton"><MdClear size={20}/></button>
                         </div>

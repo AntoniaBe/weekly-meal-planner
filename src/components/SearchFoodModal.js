@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import ReactModal from 'react-modal';
+//import ReactModal from 'react-modal';
+import Modal from 'react-responsive-modal';
 import '../style/Modal.scss';
 import '../style/SearchFoodModal.scss';
 import FoodResultList from './FoodResultList';
@@ -83,8 +84,7 @@ class SearchFoodModal extends Component {
     return (
 
 
-      <ReactModal className='modal' isOpen={isOpen} onRequestClose={onClose} ariaHideApp={false}>
-      <button className="modal_closeButton" onClick={onClose}><IoMdClose size={30}/></button>
+      <Modal className='modal' open={isOpen} onClose={onClose} ariaHideApp={false}>
       <div className='search-container'>
         <input className='search-container_input' type='text' placeholder='Search for Recipes' onChange={onInputChange} onKeyDown={(e) => e.key === 'Enter' && searchFood(e)} autoFocus="autoFocus"/>
         <button className='search-container_search-button' onClick={(e) => searchFood(e)}>
@@ -111,7 +111,7 @@ class SearchFoodModal extends Component {
 
             </div>
       }
-      </ReactModal>)
+      </Modal>)
 
   }
 

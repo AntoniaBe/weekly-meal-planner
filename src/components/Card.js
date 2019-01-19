@@ -83,7 +83,7 @@ class Card extends Component {
 
   removeRecipe(meal, weekday) {
     const cookies = new Cookies();
-        this.setState(() => ({isRecipeInfoOpen: false}));
+    this.setState(() => ({isRecipeInfoOpen: false}));
     cookies.remove(weekday + "-" + meal)
   }
 
