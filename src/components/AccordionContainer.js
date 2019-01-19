@@ -5,18 +5,18 @@ import {Accordion, AccordionItem} from 'react-sanfona';
 class AccordionContainer extends Component {
 
   render() {
-    const {ingredients, nutrients} = this.props;
+    const {ingredients, nutrients, allowMultiple, expanded} = this.props;
 
-    return (<Accordion>
+    return (<Accordion allowMultiple={allowMultiple}>
 
-      <AccordionItem title={`Ingredients`}>
+      <AccordionItem title={`Ingredients`} expanded={expanded}>
         <div>
           <ul className="accordion-list">
             {ingredients.map((ingredient, index) => (<li className="accordion-list_item" key={index}>{ingredient.text}</li>))}
           </ul>
         </div>
       </AccordionItem>
-      <AccordionItem title={`Nutrients`}>
+      <AccordionItem title={`Nutrients`} expanded={expanded}>
         <div>
           <ul className="accordion-list nutrients">
             {nutrients.map((nutrient, index) => (

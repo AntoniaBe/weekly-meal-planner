@@ -31,50 +31,50 @@ class RecipeDetail extends Component {
     console.log(recipe);
     return (
 
-          recipe === null ? <div></div> :
-          <Modal className='modal' open={isOpen} onClose={onClose} ariaHideApp={false}>
-     <div className="recipe-detail-container">
-                  <div className="recipe-detail-container_first-row">
-                    <div className="recipe-detail-container_first-row_first-detail">
-                      <h1 className="recipe-detail-container_first-row_first-detail_label">
-                        {recipe.label}
-                      </h1>
-                      <div className="recipe-detail-container_first-row_first-detail_image">
-                        <img src={recipe.image} alt={recipe.label}></img>
-                      </div>
-                    </div>
-                    <div className="recipe-detail-container_first-row_second-detail">
-                      <div >
-                        Servings: {recipe.yield}
-                      </div>
-                      <div>
-                        Calories: {Math.ceil(recipe.calories)}
-                      </div>
-                      <div>
-                        Preptime: {recipe.totalTime}
-                        Minutes
-                      </div>
-                      <div>
-                        Cautions: {recipe.cautions}
-                      </div>
-                      <div>
-                        Diet Labels: {recipe.dietLabels}
-                      </div>
-                      <div>
-                        Healt Labels: {recipe.healthLabels}
-                      </div>
-                      <div>
-                        Source:
-                        <a href={recipe.url} target="_blank" rel="noopener noreferrer">{recipe.source}</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="recipe-detail-container_second-row">
-                    <AccordionContainer ingredients={recipe.ingredients} nutrients={recipe.digest}/>
-                  </div>
-                </div>
-        </Modal>
-      )
+      recipe === null
+      ? <div></div>
+      : <Modal className='modal' open={isOpen} onClose={onClose} ariaHideApp={false}>
+        <div className="recipe-detail-container">
+          <div className="recipe-detail-container_first-row">
+            <h1 className="recipe-detail-container_first-row_first-detail_label">
+              {recipe.label}
+            </h1>
+          </div>
+          <div className="recipe-detail-container_second-row">
+            <div className="recipe-detail-container_second-row_first-detail">
+              <div className="recipe-detail-container_second-row_first-detail_image">
+                <img src={recipe.image} alt={recipe.label}></img>
+              </div>
+            </div>
+            <div className="recipe-detail-container_second-row_second-detail">
+              <div className="recipe-detail-container_second-row_second-detail_item">
+                <p><b>Servings</b>:</p> &nbsp;<p className="content">{recipe.yield}</p>
+              </div>
+              <div className="recipe-detail-container_second-row_second-detail_item">
+                <p><b>Calories</b>:</p> &nbsp;<p className="content">{Math.ceil(recipe.calories)}</p>
+              </div>
+              <div className="recipe-detail-container_second-row_second-detail_item">
+                  <p><b>Preparation Time</b>:</p> <p className="content">&nbsp;{recipe.totalTime} &nbsp;Minutes</p>
+              </div>
+              <div className="recipe-detail-container_second-row_second-detail_item">
+                  <p><b>Cautions</b>:</p> <p className="content">&nbsp;{recipe.cautions.join(", ")}</p>
+              </div>
+              <div className="recipe-detail-container_second-row_second-detail_item">
+                  <p><b>Diet Labels</b>:</p> <p className="content">&nbsp;{recipe.dietLabels.join(", ")}</p>
+              </div>
+              <div className="recipe-detail-container_second-row_second-detail_item">
+                  <p><b>Healt Labels</b>:</p> <p className="content">&nbsp;{recipe.healthLabels.join(", ")}</p>
+              </div>
+              <div className="recipe-detail-container_second-row_second-detail_item">
+                  <p><b>Source</b>:</p><p className="source">&nbsp;<a href={recipe.url} target="_blank" rel="noopener noreferrer">{recipe.source}</a></p>
+              </div>
+            </div>
+          </div>
+          <div className="recipe-detail-container_third-row">
+            <AccordionContainer ingredients={recipe.ingredients} nutrients={recipe.digest} allowMultiple={true} expanded={true}/>
+          </div>
+        </div>
+      </Modal>)
 
   }
 
