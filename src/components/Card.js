@@ -111,6 +111,18 @@ class Card extends Component {
     this.setState(() => ({isRecipeInfoOpen: false, selected: ""}));
   }
 
+  addToShoppingList(ingredients){
+    const cookies = new Cookies();
+    let data = cookies.get("shoppinglist");
+    if(data === undefined || data.length == 0) data = []
+    ingredients.forEach(function (element) {
+      data.push(element);
+    });
+    console.log(data);
+    cookies.set("shoppinglist", data, { path: '/'});
+    console.log(cookies.get("shoppinglist"));
+  }
+
   render() {
     const {weekday, weekdayDate, selectRecipe} = this.props;
     const {recipes, isSearchFoodModalOpen, loading, isRecipeDetailPageOpen} = this.state;
@@ -119,15 +131,16 @@ class Card extends Component {
 
     let meals = this.fillMeals(weekday, mealType);
 
-    return (<div className="card-container">
-      <div className="card">
-        <div>
+    return (
+      <div className="card-container">
+        <div className="card">
           <div>
-            <div className="card_weekday">
-              <h3>{weekday}</h3>
-              <h4>{weekdayDate}</h4>
-            </div>
-            {
+            <div>
+              <div className="card_weekday">
+                <h3>{weekday}</h3>
+                <h4>{weekdayDate}</h4>
+              </div>
+              {
               this.state.isRecipeDetailOpen
                 ? <div className="card_detail">
                     <div className="label_container">
@@ -135,97 +148,78 @@ class Card extends Component {
                         <h3 className="label_container-label">
                           {this.state.selected.label}
                         </h3>
-                        </div>
-                        <div>
-                        <button onClick={() => this.closeRecipeDetail()} className="return_button">
-                          <MdChevronRight size={35}/>
+                      </div>
+                      <div>
+                        <button onClick={()=> this.closeRecipeDetail()} className="return_button">
+                          <MdChevronRight size={35} />
                         </button>
-                        </div>
+                      </div>
                     </div>
                     <div className="ingredients-container">
                       <ul>
-                      {
-                        Object.keys(this.state.selected.ingredients).map(item =>
-                          <li key={item} className="ingredients-container_list">
-                          {this.state.selected.ingredients[item].text}
-                        </li>)
-                      }
+                        {
+                          Object.keys(this.state.selected.ingredients).map(item =>
+                            <li key={item} className="ingredients-container_list">
+                              {this.state.selected.ingredients[item].text}
+                            </li>)
+                        }
                       </ul>
+                      <button onClick={()=> this.addToShoppingList(this.state.selected.ingredients)} className="return_button">
+                        <MdChevronRight size={35} />
+                      </button>
                     </div>
                   </div>
-                : this.state.isRecipeInfoOpen
-                  ? <div className="card_link">
-                      <img className="image" alt="" src={this.state.selected.image}/>
-                      <div className="info_container">
-                        <h3>
-                          {this.state.selected.label}
-                        </h3>
-                        <div className="button_container">
-                          <button onClick={() => this.closeRecipeInfo()} className="return_button">
-                            <MdChevronRight size={35}/>
-                          </button>
-                        </div>
+                : <div className="card_info">
+                  {
+                    mealType.map(meal =>
+                      <div key={meal} className="card_info_type">
+                        <p>{meal}</p>
+                        {
+                          meals[meal]
+                          ? <div className="image_container">
+                              <img className="image" alt="" src={meals[meal].image} />
+                              <div className="recipe_menu_button">
+                                <button onClick={()=> this.removeRecipe(meal, weekday)} className="recipeButton">
+                                  <MdClear size={20} /></button>
+                                <button onClick={()=> this.openSearchFoodModal(meal, weekday)} className="recipeButton">
+                                  <MdCached size={20} /></button>
+                                <button onClick={()=> this.openRecipeDetailPage(meal, weekday)} className="recipeButton">
+                                  <MdInfo size={20} /></button>
+                                <button onClick={()=> this.openRecipeDetail(meal, weekday)} className="recipeButton">
+                                  <img height="20" width="20" src={require('../assets/ingredients.svg')} alt="ingredients" />
+                                </button>
+                              </div>
+                            </div>
+                          : <div className='add-meal-btn'>
+                            <button onClick={()=> this.openSearchFoodModal(meal, weekday)} className="addButton">
+                              <MdAdd size={30} /></button>
+                          </div>
+                        }
                       </div>
-                      <div className="info_details">
-                        <a href={this.state.selected.shareLink} target="edamam.com">
-                          <button onClick={() => this.closeRecipeInfo()} className="return_button">
-                            <MdPublic size={35}/>
-                            Find more details on Edamam.com!
-                          </button>
-                        </a>
-                        <a href={this.state.selected.original} target="original recipe">
-                          <button onClick={() => this.closeRecipeInfo()} className="return_button">
-                            <MdNearMe size={35}/>
-                            Find the original recipe here!
-                          </button>
-                        </a>
-                      </div>
-                    </div>
-                  : <div className="card_info">
-                      {
-                        mealType.map(meal => <div key={meal} className="card_info_type">
-                          <p>{meal}</p>
-                          {
-                            meals[meal]
-                              ? <div className="image_container">
-                                  <img className="image" alt="" src={meals[meal].image}/>
-                                  <div className="recipe_menu_button">
-                                    <button onClick={() => this.removeRecipe(meal, weekday)} className="recipeButton">
-                                      <MdClear size={20}/></button>
-                                    <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="recipeButton">
-                                      <MdCached size={20}/></button>
-                                    <button onClick={() => this.openRecipeDetailPage(meal, weekday)} className="recipeButton">
-                                      <MdInfo size={20}/></button>
-                                    <button onClick={() => this.openRecipeDetail(meal, weekday)} className="recipeButton">
-                                      <img height="20" width="20" src={require('../assets/ingredients.svg')} alt="ingredients"/>
-                                    </button>
-                                  </div>
-                                </div>
-                              : <div className='add-meal-btn'>
-                                  <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="addButton">
-                                    <MdAdd size={30}/></button>
-                                </div>
-                          }
-                        </div>)
-                      }
-                    </div>
-            }
+                    )
+                  }
+                </div>
+              }
+            </div>
           </div>
         </div>
-      </div>
 
-      {
+        {
         this.state.isSearchFoodModalOpen
-          ? <SearchFoodModal isOpen={isSearchFoodModalOpen} onClose={this.closeSearchFoodModal} searchFood={this.searchFood} onInputChange={this.onInputChange} recipes={recipes} loading={loading} selectRecipe={selectRecipe} weekday={this.state.weekday} mealType={this.state.mealType}/>
-          : ''
-      }
+        ?
+        <SearchFoodModal isOpen={isSearchFoodModalOpen} onClose={this.closeSearchFoodModal} searchFood={this.searchFood} onInputChange={this.onInputChange} recipes={recipes} loading={loading} selectRecipe={selectRecipe} weekday={this.state.weekday}
+          mealType={this.state.mealType} />
+        : ''
+        }
 
-      {
+        {
         this.state.isRecipeDetailPageOpen
-          ? <RecipeDetail isOpen={isRecipeDetailPageOpen} onClose={this.closeRecipeDetailPage} selectRecipe={this.state.selected}/>
-          : ''
-      }
-    </div>)
+        ?
+        <RecipeDetail isOpen={isRecipeDetailPageOpen} onClose={this.closeRecipeDetailPage} selectRecipe={this.state.selected} />
+        : ''
+        }
+    </div>
+  )
   }
 }
 
