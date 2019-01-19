@@ -116,6 +116,27 @@ img {
   box-shadow: 1px 1px 0 2px rgba (0,0,0,0.3);
   cursor: pointer;
 }
+.unq_btn{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+.add_fav{
+      border: none;
+      background-color: transparent;
+      display: inline-block;
+      text-decoration: none;
+      font-size: 50px;
+}
+.star{
+  color: #ed7168;
+  transition: .3s;
+}
+.unq_btn .add_fav:hover .star{
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
 .image_container{
   position: relative;
   text-align: center;
@@ -170,10 +191,14 @@ img {
   height: 310px;
   width: 300px;
   text-align: left;
-    overflow: auto;
+  overflow: auto;
 
 
   .ingredients-container_list {
     padding: 5px;
   }
+}
+.card_extra > .card{
+  max-height: 350px;
+  overflow: auto;
 }

@@ -32,7 +32,6 @@ class FoodResultList extends Component {
 
       cookie[size] = data;
       cookies.set("Extra", cookie, { path: '/'});
-
   }
 
   render() {
@@ -43,7 +42,17 @@ class FoodResultList extends Component {
                     <div className='search-food-results_item_title'>
                       <h3>{recipe.label}</h3>
                     </div>
+                    <div className="image_container">
                     <img src={recipe.image} alt={recipe.label}/>
+                    <div className="unq_btn">
+                      <button onClick={() => this.addFavorite(recipe)} className="add_fav">
+                        <span class="md-stack">
+                          <MdStar className="star" size={35}/>
+                        </span>
+                      </button>
+                    </div>
+                    </div>
+
                     <div className='search-food-results_item_infos'>
                       <p className='search-food-results_item_infos_dietLabel'>{recipe.dietLabels.join(", ")}
                       </p>
@@ -52,9 +61,7 @@ class FoodResultList extends Component {
                           &nbsp;Calories</p>
                         <p>{recipe.totalTime}
                           &nbsp;Minutes</p>
-                          <button onClick={() => this.addFavorite(recipe)} className="add_fav">
-                              <MdStar size={25}/>
-                          </button>
+
                       </div>
                       <div className='search-food-results_item_infos_healthLabels'>{recipe.healthLabels.length > 0 ? recipe.healthLabels.map(i => '#' + i).reduce((prev, curr) => [prev, ', ', curr]) : '' }</div>
                       <AccordionContainer ingredients={recipe.ingredients} nutrients={recipe.digest}/>

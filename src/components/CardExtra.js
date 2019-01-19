@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../style/Card.scss';
 import SearchFoodModal from './SearchFoodModal';
+import ShoppingList from './ShoppingList';
 import { fetchRecipes } from '../utils/apiCall';
 import {MdAdd, MdClear} from "react-icons/md";
 import Cookies from 'universal-cookie';
@@ -14,8 +15,11 @@ class CardExtra extends Component {
     super(props);
     this.openSearchFoodModal= this.openSearchFoodModal.bind(this);
     this.closeSearchFoodModal= this.closeSearchFoodModal.bind(this);
+    this.openShoppingListModal= this.openShoppingListModal.bind(this);
+    this.closeShoppingListModal= this.closeShoppingListModal.bind(this);
     this.state = {
       isSearchFoodModalOpen: false,
+      isShoppingListModalOpen: false,
       foodSearchInput: '',
       recipes: null,
       mealType: null,
@@ -31,15 +35,25 @@ class CardExtra extends Component {
       weekday: weekday,
     }));
   };
-
+  openShoppingListModal = (weekday ) => {
+    this.setState(() => ({
+      isShoppingListModalOpen: true
+    }));
+  };
 
   closeSearchFoodModal = () => {
-  this.setState(() => ({
-    isSearchFoodModalOpen: false,
-    recipes: null,
-    foodSearchInput: '',
-    weekday: 'unset',
-  }));
+    this.setState(() => ({
+      isSearchFoodModalOpen: false,
+      recipes: null,
+      foodSearchInput: '',
+      weekday: 'unset',
+    }));
+  };
+
+  closeShoppingListModal = () => {
+    this.setState(() => ({
+      isShoppingListModalOpen: false
+    }));
   };
 
   onInputChange = (e) => {
@@ -76,12 +90,12 @@ class CardExtra extends Component {
 
   render() {
     const {weekday, extra, extraPlus, selectRecipe } = this.props;
-    const {recipes, isSearchFoodModalOpen, loading } = this.state;
+    const {recipes, isSearchFoodModalOpen, isShoppingListModalOpen, loading } = this.state;
 
     const recipeBacklog = this.getBacklog(weekday);
 
     return (
-      <div className="card-container">
+      <div className="card-container  card_extra">
       <div className="card">
           <div>
               <div className="card_backlog">
@@ -105,7 +119,7 @@ class CardExtra extends Component {
               </div>
             </div>
     </div>
-
+    <button onClick={() => this.openShoppingListModal()} className="addButton"><MdAdd size={30}/></button>
 
     <SearchFoodModal
       isOpen={isSearchFoodModalOpen}
@@ -117,7 +131,11 @@ class CardExtra extends Component {
       selectRecipe={selectRecipe}
       weekday={this.state.weekday}
       mealType={this.state.mealType}
-      />
+    />
+    <ShoppingList
+        isOpen={isShoppingListModalOpen}
+        onClose={this.closeShoppingListModal}
+    />
     </div>
   )
   }
