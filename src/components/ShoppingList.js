@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactModal from 'react-modal';
+import Modal from 'react-responsive-modal';
 import { fetchRecipes } from '../utils/apiCall';
 import '../style/Modal.scss';
 import '../style/SearchFoodModal.scss';
@@ -37,7 +37,7 @@ class ShoppingList extends Component {
     let list = this.getShoppinglist();
 
     return (
-      <ReactModal className='modal' isOpen={isOpen} onRequestClose={onClose} ariaHideApp={false}>
+      <Modal className='modal' open={isOpen} onClose={onClose} ariaHideApp={false}>
         {
           this.state.empty
             ? <div className="emtpy_list">
@@ -55,7 +55,7 @@ class ShoppingList extends Component {
                 </div>
               </div>
         }
-      </ReactModal>
+      </Modal>
     )
 
   }
