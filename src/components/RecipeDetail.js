@@ -4,7 +4,6 @@ import {fetchRecipes} from '../utils/apiCall';
 import '../style/Modal.scss';
 import '../style/RecipeDetail.scss';
 import AccordionContainer from './AccordionContainer';
-import {IoMdClose} from "react-icons/io";
 
 class RecipeDetail extends Component {
 
@@ -32,7 +31,7 @@ class RecipeDetail extends Component {
     console.log(recipe);
     return (
 
-          recipe === null ? <div></div> : 
+          recipe === null ? <div></div> :
           <Modal className='modal' open={isOpen} onClose={onClose} ariaHideApp={false}>
      <div className="recipe-detail-container">
                   <div className="recipe-detail-container_first-row">
