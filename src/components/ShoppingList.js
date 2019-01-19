@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ReactModal from 'react-modal';
 import Modal from 'react-responsive-modal';
 import { fetchRecipes } from '../utils/apiCall';
 import '../style/Modal.scss';
@@ -48,12 +47,15 @@ class ShoppingList extends Component {
             : <div className="full_list">
                 <h1>Shopping List</h1>
                 <div className="shopping-container">
+                  <ul>
                     {
                       Object.keys(list).map(item =>
-                        <div key={item} className="ingredients-container_list">
+                        <li key={item} className="item">
                           {list[item].text}
-                        </div>)
+                        </li>
+                      )
                     }
+                  </ul>
                 </div>
               </div>
         }
