@@ -3,9 +3,8 @@ import '../style/Modal.scss';
 import '../style/SearchFoodModal.scss';
 import AccordionContainer from './AccordionContainer';
 import Cookies from 'universal-cookie';
-import {
-    MdStar
-} from "react-icons/md";
+import {MdStar} from "react-icons/md";
+import {FaCertificate } from "react-icons/fa";
 
 
 class FoodResultList extends Component {
@@ -47,7 +46,7 @@ class FoodResultList extends Component {
                     <div className="unq_btn">
                       <button onClick={() => this.addFavorite(recipe)} className="add_fav">
                         <span class="md-stack">
-                          <MdStar className="star" size={35}/>
+                          <FaCertificate className="star" size={35}/>
                         </span>
                       </button>
                     </div>

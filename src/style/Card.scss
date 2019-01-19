@@ -82,6 +82,16 @@ p {
   box-shadow: 1px 1px 0 2px rgba (0,0,0,0.3);
   cursor: pointer;
 }
+.shopping_list_button{
+  background-color: #aaf0d1;
+  font-size: 25px;
+  height: 50px;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0 2px rgba (0,0,0,0.3);
+  cursor: pointer;
+}
 
 img {
   width: 100% !important;
@@ -197,6 +207,12 @@ img {
   }
 }
 .card_extra > .card{
-  max-height: 350px;
+  max-height: 395px;
   overflow: auto;
+}
+.react-sanfona-item-body{
+  max-height: 25px;
+}
+.backlog_button{
+
 }

@@ -88,11 +88,29 @@ class CardExtra extends Component {
     return cookies.get(weekday);
   }
 
+  handleFormSubmit(e) {
+		e.preventDefault();
+
+		const formPayload = {
+			ownerName: this.state.ownerName,
+			selectedPets: this.state.selectedPets,
+			ownerAgeRangeSelection: this.state.ownerAgeRangeSelection,
+			siblingSelection: this.state.siblingSelection,
+			currentPetCount: this.state.currentPetCount,
+			description: this.state.description
+		};
+
+		console.log('Send this in a POST request:', formPayload);
+		this.handleClearForm(e);
+  }
+
   render() {
     const {weekday, extra, extraPlus, selectRecipe } = this.props;
     const {recipes, isSearchFoodModalOpen, isShoppingListModalOpen, loading } = this.state;
 
     const recipeBacklog = this.getBacklog(weekday);
+    let day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    let meal = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
 
     return (
       <div className="card-container  card_extra">
@@ -109,7 +127,33 @@ class CardExtra extends Component {
                     Object.keys(recipeBacklog).map(key =>
                       <AccordionItem key={key} className="accordion-backlog" title={recipeBacklog[key].text}>
                         <div>
-                          <button onClick={() => this.removeRecipe(key, weekday)} className="addButton"><MdClear size={20}/></button>
+                          <button onClick={() => this.removeRecipe(key, weekday)} className="backlog_button"><MdClear size={20}/></button>
+                          <form className="container" onSubmit={this.handleFormSubmit}>
+
+
+
+                            <select name="day" value={day[0]} onChange={console.log("oki")}	className="form-select">
+                                 { day.map(opt => {
+                                       return (
+                                              <option key={opt} value={opt}>{opt}</option>
+                                               );
+                                    })
+                                }
+                            </select>
+
+                            <select name="meal" value={meal[0]} onChange={console.log("oki")}	className="form-select">
+                        			   { meal.map(opt => {
+                        				       return (
+                        					            <option key={opt} value={opt}>{opt}</option>
+                        			                 );
+                                    })
+                                }
+                            </select>
+
+
+
+                          </form>
+
                         </div>
                       </AccordionItem>
                     ) : ''
@@ -119,8 +163,10 @@ class CardExtra extends Component {
               </div>
             </div>
     </div>
-    <button onClick={() => this.openShoppingListModal()} className="addButton"><MdAdd size={30}/></button>
 
+    <div className="card">
+      <button onClick={() => this.openShoppingListModal()} className="shopping_list_button"><h3>Shopping List</h3></button>
+      </div>
     <SearchFoodModal
       isOpen={isSearchFoodModalOpen}
       onClose={this.closeSearchFoodModal}
