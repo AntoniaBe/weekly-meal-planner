@@ -23,12 +23,9 @@ class SearchFoodModal extends Component {
       let data = {
           text: recipe.label,
           image: recipe.image,
-          label: recipe.label,
           totalTime: recipe.totalTime,
           ingredients: recipe.ingredients,
-          id: recipe.uri.toString().split('recipe_')[1],
-          shareLink: recipe.shareAs,
-          original: recipe.url
+          id: recipe.uri.toString().split('recipe_')[1]
       };
 
       const cookies = new Cookies();
@@ -37,21 +34,16 @@ class SearchFoodModal extends Component {
   }
 
   addCookieBacklog(recipe, weekday, onClose) {
+      console.log(weekday);
       onClose();
       let data = {
         text: recipe.label,
-        image: recipe.image,
-        label: recipe.label,
-        totalTime: recipe.totalTime,
-        ingredients: recipe.ingredients,
-        shareLink: recipe.shareAs,
-        id: recipe.uri.toString().split('recipe_')[1],
-        original: recipe.url
+        id: recipe.uri.toString().split('recipe_')[1]
       };
 
       const cookies = new Cookies();
       let cookie;
-      let size = recipe.label;
+      let size = 0;
         cookies.get(weekday)
           ? cookie = cookies.get(weekday)
           : cookie = {}
