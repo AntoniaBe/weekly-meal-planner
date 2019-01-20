@@ -15,10 +15,13 @@ class FoodResultList extends Component {
   }
 
   addFavorite(recipe){
+    console.log("add fav");
     const cookies = new Cookies();
       let data = {
-          text: recipe.label,
-          id: recipe.uri.toString().split('recipe_')[1]
+        text: recipe.label,
+        image: recipe.image,
+        ingredients: recipe.ingredients,
+        id: recipe.uri.toString().split('recipe_')[1]
       };
 
     let cookie;
