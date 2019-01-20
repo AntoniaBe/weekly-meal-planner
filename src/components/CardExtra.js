@@ -25,7 +25,8 @@ class CardExtra extends Component {
       foodSearchInput: '',
       recipes: null,
       mealType: null,
-      weekday: ''
+      weekday: '',
+      backlog: this.getBacklog('Extra')
     };
   }
 
@@ -81,6 +82,11 @@ class CardExtra extends Component {
   removeRecipe(key, weekday){
     const cookies = new Cookies();
     let cookie = cookies.get(weekday);
+    let data = this.state.backlog;
+    delete data[key];
+    this.setState(() => ({
+      backlog: data,
+    }));
     delete cookie[key];
     cookies.set(weekday, cookie);
   }
@@ -109,7 +115,6 @@ class CardExtra extends Component {
     const {weekday, extra, extraPlus, selectRecipe } = this.props;
     const {recipes, isSearchFoodModalOpen, isShoppingListModalOpen, loading } = this.state;
 
-    const recipeBacklog = this.getBacklog(weekday);
     let day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     let meal = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
 
@@ -124,9 +129,9 @@ class CardExtra extends Component {
               <div className="card_info_backlog">
                 <Accordion>
                   {
-                    recipeBacklog ?
-                    Object.keys(recipeBacklog).map(key =>
-                      <AccordionItem key={key} className="accordion-backlog" title={recipeBacklog[key].text}>
+                    this.state.backlog ?
+                    Object.keys(this.state.backlog).map(key =>
+                      <AccordionItem key={key} className="accordion-backlog" title={this.state.backlog[key].text}>
                         <div>
                           <button onClick={() => this.removeRecipe(key, weekday)} className="backlog_button"><MdClear size={20}/></button>
                           <form className="container" onSubmit={this.handleFormSubmit}>

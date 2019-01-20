@@ -12,6 +12,7 @@ import {
   MdPublic,
   MdNearMe
 } from "react-icons/md";
+import {FaShoppingCart } from "react-icons/fa";
 import Cookies from 'universal-cookie';
 require('typeface-dancing-script');
 
@@ -162,8 +163,10 @@ class Card extends Component {
                           </li>)
                         }
                       </ul>
-                      <button onClick={() => this.addToShoppingList(this.state.selected.ingredients)} className="add_to_list">
-                        Add ingredients to Shopping List
+                      <button onClick={() => this.addToShoppingList(this.state.selected.ingredients)} class="btn btn-5 btn-5b icon-cart">
+                        <span>
+                          Add to Shopping List
+                        </span>
                       </button>
                     </div>
                   </div>
