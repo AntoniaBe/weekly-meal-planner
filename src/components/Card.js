@@ -37,15 +37,15 @@ class Card extends Component {
   }
 
   openRecipeDetailPage = (meal, weekday) => {
-     const cookies = new Cookies();
+    const cookies = new Cookies();
     this.setState(() => ({
-        selected: cookies.get(weekday+"-"+meal),
-      isRecipeDetailPageOpen: true,
+      selected: cookies.get(weekday + "-" + meal),
+      isRecipeDetailPageOpen: true
     }));
   };
 
   closeRecipeDetailPage = () => {
-    this.setState(() => ({isRecipeDetailPageOpen: false }));
+    this.setState(() => ({isRecipeDetailPageOpen: false}));
   };
 
   openSearchFoodModal = (mealType, weekday) => {
@@ -111,15 +111,16 @@ class Card extends Component {
     this.setState(() => ({isRecipeInfoOpen: false, selected: ""}));
   }
 
-  addToShoppingList(ingredients){
+  addToShoppingList(ingredients) {
     const cookies = new Cookies();
     let data = cookies.get("shoppinglist");
-    if(data === undefined || data.length == 0) data = []
-    ingredients.forEach(function (element) {
-      element["checked"]=false;
+    if (data === undefined || data.length == 0)
+      data = []
+    ingredients.forEach(function(element) {
+      element["checked"] = false;
       data.push(element);
     });
-    cookies.set("shoppinglist", data, { path: '/'});
+    cookies.set("shoppinglist", data, {path: '/'});
   }
 
   render() {
@@ -130,16 +131,15 @@ class Card extends Component {
 
     let meals = this.fillMeals(weekday, mealType);
 
-    return (
-      <div className="card-container">
-        <div className="card">
+    return (<div className="card-container">
+      <div className="card">
+        <div>
           <div>
-            <div>
-              <div className="card_weekday">
-                <h3>{weekday}</h3>
-                <h4>{weekdayDate}</h4>
-              </div>
-              {
+            <div className="card_weekday">
+              <h3>{weekday}</h3>
+              <h4>{weekdayDate}</h4>
+            </div>
+            {
               this.state.isRecipeDetailOpen
                 ? <div className="card_detail">
                     <div className="label_container">
@@ -149,76 +149,75 @@ class Card extends Component {
                         </h3>
                       </div>
                       <div>
-                        <button onClick={()=> this.closeRecipeDetail()} className="return_button">
-                          <MdChevronRight size={35} />
+                        <button onClick={() => this.closeRecipeDetail()} className="return_button">
+                          <MdChevronRight size={35}/>
                         </button>
                       </div>
                     </div>
                     <div className="ingredients-container">
                       <ul>
                         {
-                          Object.keys(this.state.selected.ingredients).map(item =>
-                            <li key={item} className="ingredients-container_list">
-                              {this.state.selected.ingredients[item].text}
-                            </li>)
+                          Object.keys(this.state.selected.ingredients).map(item => <li key={item} className="ingredients-container_list">
+                            {this.state.selected.ingredients[item].text}
+                          </li>)
                         }
                       </ul>
-                      <button onClick={()=> this.addToShoppingList(this.state.selected.ingredients)} className="add_to_list">
+                      <button onClick={() => this.addToShoppingList(this.state.selected.ingredients)} className="add_to_list">
                         Add ingredients to Shopping List
                       </button>
                     </div>
                   </div>
                 : <div className="card_info">
-                  {
-                    mealType.map(meal =>
-                      <div key={meal} className="card_info_type">
-                        <p>{meal}</p>
+                    {
+                      mealType.map(meal => <div key={meal} className="card_info_type">
                         {
                           meals[meal]
-                          ? <div className="image_container">
-                              <img className="image" alt="" src={meals[meal].image} />
-                              <div className="recipe_menu_button">
-                                <button onClick={()=> this.removeRecipe(meal, weekday)} className="recipeButton">
-                                  <MdClear size={20} /></button>
-                                <button onClick={()=> this.openSearchFoodModal(meal, weekday)} className="recipeButton">
-                                  <MdCached size={20} /></button>
-                                <button onClick={()=> this.openRecipeDetailPage(meal, weekday)} className="recipeButton">
-                                  <MdInfo size={20} /></button>
-                                <button onClick={()=> this.openRecipeDetail(meal, weekday)} className="recipeButton">
-                                  <img height="20" width="20" src={require('../assets/ingredients.svg')} alt="ingredients" />
-                                </button>
+                            ? <div style={{
+                                  backgroundImage: `url(${meals[meal].image})`
+                                }} className="card_info_type_image_container">
+                                <div className="card_info_type_image_container_overlay">
+                                  <div className="card_info_type_image_container_label">
+                                    <p>{meal}</p>
+                                  </div>
+                                  <div className="card_info_type_recipe_menu_button">
+                                    <button onClick={() => this.removeRecipe(meal, weekday)} className="recipeButton">
+                                      <MdClear size={20}/></button>
+                                    <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="recipeButton">
+                                      <MdCached size={20}/></button>
+                                    <button onClick={() => this.openRecipeDetailPage(meal, weekday)} className="recipeButton">
+                                      <MdInfo size={20}/></button>
+                                    <button onClick={() => this.openRecipeDetail(meal, weekday)} className="recipeButton">
+                                      <img height="20" width="20" src={require('../assets/ingredients.svg')} alt="ingredients"/>
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          : <div className='add-meal-btn'>
-                            <button onClick={()=> this.openSearchFoodModal(meal, weekday)} className="addButton">
-                              <MdAdd size={30} /></button>
-                          </div>
+                            : <div className='add-meal-btn'>
+                                <p>{meal}</p>
+                                <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="addButton">
+                                  <MdAdd size={30}/></button>
+                              </div>
                         }
-                      </div>
-                    )
-                  }
-                </div>
-              }
-            </div>
+                      </div>)
+                    }
+                  </div>
+            }
           </div>
         </div>
+      </div>
 
-        {
+      {
         this.state.isSearchFoodModalOpen
-        ?
-        <SearchFoodModal isOpen={isSearchFoodModalOpen} onClose={this.closeSearchFoodModal} searchFood={this.searchFood} onInputChange={this.onInputChange} recipes={recipes} loading={loading} selectRecipe={selectRecipe} weekday={this.state.weekday}
-          mealType={this.state.mealType} />
-        : ''
-        }
+          ? <SearchFoodModal isOpen={isSearchFoodModalOpen} onClose={this.closeSearchFoodModal} searchFood={this.searchFood} onInputChange={this.onInputChange} recipes={recipes} loading={loading} selectRecipe={selectRecipe} weekday={this.state.weekday} mealType={this.state.mealType}/>
+          : ''
+      }
 
-        {
+      {
         this.state.isRecipeDetailPageOpen
-        ?
-        <RecipeDetail isOpen={isRecipeDetailPageOpen} onClose={this.closeRecipeDetailPage} selectRecipe={this.state.selected} />
-        : ''
-        }
-    </div>
-  )
+          ? <RecipeDetail isOpen={isRecipeDetailPageOpen} onClose={this.closeRecipeDetailPage} selectRecipe={this.state.selected}/>
+          : ''
+      }
+    </div>)
   }
 }
 
