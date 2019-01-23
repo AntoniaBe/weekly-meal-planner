@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../style/App.css';
+import '../style/App.scss';
 import Card from './Card';
 import CardExtra from './CardExtra';
 import * as moment from 'moment';

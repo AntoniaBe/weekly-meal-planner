@@ -1,6 +1,7 @@
+@import "variables";
 h3 {
   font-size: 28px;
-  font-family: 'Dancing Script', cursive;
+  font-family: $header-font;
   text-align: center;
   margin: 0;
   color: black;
@@ -8,7 +9,7 @@ h3 {
 
 h4 {
   font-size: 17px;
-  font-family: 'Josefin Slab', serif;
+  font-family: $text-font;
   margin: 0;
   text-align: center;
   color: black;
@@ -22,7 +23,7 @@ p {
 
 .card {
   width: 320px;
-  background-color: #aaf0d1;
+  background-color: $base_color;
   position: relative;
   margin-bottom: 20px;
   text-decoration: none;
@@ -73,7 +74,7 @@ p {
 }
 
 .addButton {
-  background-color: #aaf0d1;
+  background-color: $base_color;
   font-size: 35px;
   height: 50px;
   width: 50px;
@@ -84,7 +85,7 @@ p {
 }
 
 .shopping_list_button {
-  background-color: #aaf0d1;
+  background-color: $base_color;
   font-size: 25px;
   height: 50px;
   width: 100%;
@@ -174,7 +175,7 @@ img {
     .card_info_type_image_container_label {
       color: white;
       font-size: 28px;
-      font-family: 'Josefin Slab', serif;
+      font-family: $text-font;
       margin: auto;
       padding-top: 25px;
 
@@ -291,7 +292,7 @@ height: 320px
    padding-top: 2%
 }
 .btn-5 {
-	background: #446054;
+	background: $dark_base;
 	color: #fff;
 	height: 50px;
 	font-size: 12px;
@@ -301,7 +302,7 @@ height: 320px
 	backface-visibility: hidden;
 }
 .btn-5:active {
-	background: #9053a9;
+	background: $highlight_color;
 	top: 2px;
 }
 .btn-5 span {
@@ -327,7 +328,7 @@ height: 320px
 }
 
 .btn-5:active:before {
-	color: #703b87;
+	color: $highlight_color;
 }
 .btn-5b:hover span {
 	-webkit-transform: translateX(200%);
@@ -347,7 +348,7 @@ height: 320px
 
 .button {
   display: inline-block;
-  background-color: #446054;
+  background-color: $dark_base;
   border-radius: 20px;
   border:none;
   color: #FFFFFF;

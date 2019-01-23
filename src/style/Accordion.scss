@@ -1,3 +1,4 @@
+@import 'variables';
 :root {
   --border-radius: 6px;
 }
@@ -16,7 +17,7 @@
 .react-sanfona {}
 
 .react-sanfona-item-title {
-  background-color: rgba(255,127,80,0.75);
+  background-color: $dark_base;
   border-top: 1px solid #ccc;
   color: #333;
   padding: 5px;
@@ -32,8 +33,8 @@
 }
 
 .react-sanfona-item-expanded .react-sanfona-item-title {
-  background-color: #aaf0d1;
-  color: #fff;
+  background-color: $base_color;
+  color: #000;
 }
 
 .react-sanfona-item-body-wrapper {

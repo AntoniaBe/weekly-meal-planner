@@ -1,14 +1,14 @@
-
+@import 'variables';
 h1 {
   font-size: 28px;
-  font-family: 'Dancing Script', cursive;
+  font-family: $header-font;
   text-align: center;
     margin: 0;
 }
 
 h2 {
   font-size: 17px;
-  font-family: 'Josefin Slab', serif;
+  font-family: $text-font;
   margin: 0;
   text-align: center;
 }
@@ -34,7 +34,7 @@ h1,h2 {
 }
 
 .addButton {
-  background-color: #aaf0d1;
+  background-color: $base_color;
   margin: 30px;
   font-size: 35px;
   height: 50px;

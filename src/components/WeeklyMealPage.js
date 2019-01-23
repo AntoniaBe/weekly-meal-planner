@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../style/WeeklyMealPage.css';
+import '../style/WeeklyMealPage.scss';
 import * as moment from 'moment';
 require('typeface-dancing-script');
 

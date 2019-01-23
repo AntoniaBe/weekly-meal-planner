@@ -1,17 +1,18 @@
+@import 'variables';
 .App {
   text-align: center;
 }
 
 h1 {
   font-size: 50px;
-  font-family: 'Dancing Script', cursive;
+  font-family: $header-font;
   margin: 0;
-  color: rgba(255, 127, 80, 1);
+  color: $highlight_color;
 }
 
 h2 {
   font-size: 25px;
-  font-family: 'Josefin Slab', serif;
+  font-family: $text-font;
   margin: 0;
 }
 

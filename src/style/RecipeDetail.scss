@@ -1,3 +1,4 @@
+@import 'variables';
 .recipe-detail-container {
   display: flex;
   flex-direction: column;
@@ -47,7 +48,7 @@
         }
 
         .source:hover a {
-          color: #ed7168;
+          color: $highlight_color;
         }
       }
 

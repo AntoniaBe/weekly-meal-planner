@@ -1,3 +1,4 @@
+@import 'variables';
 .loading-container {
   display: flex;
   align-items: center;
@@ -21,8 +22,8 @@
 
 
   button {
-    background-color: #aaf0d1;
-    border-color: #aaf0d1;
+    background-color: $base_color;
+    border-color: $base_color;
     border-width: 1px;
     cursor: pointer;
   }
@@ -35,8 +36,8 @@
 
   input:focus {
     outline: none !important;
-    border: 1px solid #aaf0d1;
-    box-shadow: 0 0 10px #aaf0d1;
+    border: 1px solid $base_color;
+    box-shadow: 0 0 10px $base_color;
   }
 }
 
@@ -94,7 +95,7 @@
     }
 
     .search-food-results_item_infos_dietLabel {
-      color: rgba(255,127,80,1);
+      color: $highlight_color;
       height: 31px;
     }
 
@@ -106,7 +107,7 @@
     .search-food-results_item_infos_healthLabels {
       color: grey;
       text-transform: lowercase;
-      height: 42px;
+      height: 49px;
       display: flex;
       align-items: flex-start;
       justify-content: center;
