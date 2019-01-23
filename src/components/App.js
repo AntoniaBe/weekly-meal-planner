@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import '../style/App.scss';
 import Card from './Card';
 import CardExtra from './CardExtra';
-import * as moment from 'moment';
+import AppStore from '../stores/AppStore';
 class App extends Component {
+
 
 
   constructor(props) {
@@ -12,31 +13,22 @@ class App extends Component {
     };
   }
 
-  getWeekNumber(d) {
-    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
-    var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-    var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
-    return [d.getUTCFullYear(), weekNo];
-}
+  fillDays(start, end){
+    let days = [];
+    let day = start;
+    while (day <= end) {
+        days.push({day: day.format('dddd').toString(), date:day.format("Do MMMM YYYY").toString(), });
+        day = day.clone().add(1, 'd');
+    }
+    return days;
+  }
 
 
   render() {
+    const appStore = new AppStore();
+    var result = appStore.getWeekNumber(new Date());
 
-    var result = this.getWeekNumber(new Date());
-    //var nextResult = parseInt(result[1]) + 1;
-
-    const startOfWeek = moment().startOf('isoWeek');
-    const endOfWeek = moment().endOf('isoWeek');
-
-    const days = [];
-    let day = startOfWeek;
-
-      while (day <= endOfWeek) {
-        days.push({day: day.format('dddd').toString(), date:day.format("Do MMMM YYYY").toString(), });
-        day = day.clone().add(1, 'd');
-      }
-
+    let days = this.fillDays(appStore.startOfWeek, appStore.endOfWeek);
 
     return (
       <div className="App">
@@ -48,14 +40,14 @@ class App extends Component {
             Week {result[1]}
           </h2>
           <h4>
-            {startOfWeek.format('Do MMMM YYYY').toString()}&nbsp;-&nbsp;{endOfWeek.format('Do MMMM YYYY').toString()}
+            {appStore.startOfWeek.format('Do MMMM YYYY').toString()}&nbsp;-&nbsp;{appStore.endOfWeek.format('Do MMMM YYYY').toString()}
           </h4>
         </header>
           <div className="card_container">
             {days.map((data, idx) =>
-                <Card key={idx} weekday={data.day} weekdayDate={data.date} isWeekday={true}/>
+                <Card key={idx} weekday={data.day} weekdayDate={data.date} isWeekday={true} store={appStore}/>
             )}
-            <CardExtra key={'extra'} weekday={'Extra'} extra={'Save Recipes'} extraPlus={"In Case you are feelin' it"}/>
+            <CardExtra key={'extra'} weekday={'Extra'} extra={'Save Recipes'} extraPlus={"In Case you are feelin' it"} store={appStore}/>
           </div>
 
       </div>

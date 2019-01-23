@@ -9,6 +9,8 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
+    "mobx": "^5.9.0",
+    "mobx-react": "^5.4.3",
     "moment": "^2.22.2",
     "node-sass": "^4.11.0",
     "react": "^16.6.3",

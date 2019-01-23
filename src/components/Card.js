@@ -3,6 +3,7 @@ import '../style/Card.scss';
 import SearchFoodModal from './SearchFoodModal';
 import RecipeDetail from './RecipeDetail';
 import {fetchRecipes} from '../utils/apiCall';
+import AppStore from '../stores/AppStore';
 import {
   MdAdd,
   MdCached,
@@ -14,6 +15,8 @@ import {
 } from "react-icons/md";
 import {FaShoppingCart } from "react-icons/fa";
 import Cookies from 'universal-cookie';
+import {toJS} from 'mobx';
+
 require('typeface-dancing-script');
 
 class Card extends Component {
@@ -73,15 +76,6 @@ class Card extends Component {
     fetchRecipes(this.state.foodSearchInput).then((recipes) => this.setState(() => ({recipes, loading: false})));
   };
 
-  fillMeals(weekday, mealType) {
-    const cookies = new Cookies();
-    let meals = {}
-    mealType.forEach(function(element) {
-      meals[element] = cookies.get(weekday + "-" + element);
-    })
-    return meals;
-  }
-
   removeRecipe(meal, weekday) {
     const cookies = new Cookies();
     this.setState(() => ({isRecipeInfoOpen: false}));
@@ -91,7 +85,6 @@ class Card extends Component {
   openRecipeInfo(meal, weekday) {
     const cookies = new Cookies();
     this.setState(() => ({
-      //isRecipeInfoOpen: true,
       selected: cookies.get(weekday + "-" + meal)
     }));
   }
@@ -125,12 +118,12 @@ class Card extends Component {
   }
 
   render() {
-    const {weekday, weekdayDate, selectRecipe} = this.props;
+    const {weekday, weekdayDate, selectRecipe, store} = this.props;
     const {recipes, isSearchFoodModalOpen, loading, isRecipeDetailPageOpen} = this.state;
 
     const mealType = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
 
-    let meals = this.fillMeals(weekday, mealType);
+    store.fillMeals(weekday, mealType);
 
     return (<div className="card-container">
       <div className="card">
@@ -174,9 +167,9 @@ class Card extends Component {
                     {
                       mealType.map(meal => <div key={meal} className="card_info_type">
                         {
-                          meals[meal]
+                          store.recipes[weekday][meal]
                             ? <div style={{
-                                  backgroundImage: `url(${meals[meal].image})`
+                                  backgroundImage: `url(${store.recipes[weekday][meal].image})`
                                 }} className="card_info_type_image_container">
                                 <div className="card_info_type_image_container_overlay">
                                   <div className="card_info_type_image_container_label">

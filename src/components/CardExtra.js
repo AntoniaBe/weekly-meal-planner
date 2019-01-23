@@ -20,13 +20,14 @@ class CardExtra extends Component {
     this.state = {
       daySelected: 'Monday',
       mealSelected: 'Breakfast',
+      recipeSelected: '',
       isSearchFoodModalOpen: false,
       isShoppingListModalOpen: false,
       foodSearchInput: '',
       recipes: null,
       mealType: null,
       weekday: '',
-      backlog: this.getBacklog('Extra')
+      backlog: this.getBacklog('Extra'),
     };
   }
 
@@ -102,17 +103,18 @@ class CardExtra extends Component {
   handleMealChange = (e) => {
     this.setState({ mealSelected: e.target.value });
   };
+  changeRecipe = (e) => {
+    this.setState({ recipeSelected:  this.state.backlog[e.target.getAttribute('value')] });
+  };
 
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-
+  handleFormSubmit(store) {
     const cookies = new Cookies();
-    cookies.set(this.state.daySelected+"-"+this.state.mealSelected, this.state.backlog[e.target.getAttribute('value')], { path: '/'});
-    this.forceUpdate();
+    cookies.set(this.state.daySelected+"-"+this.state.mealSelected, this.state.recipeSelected, { path: '/'});
+    store.recipes[this.state.daySelected][this.state.mealSelected] = this.state.selectRecipe;
   };
 
   render() {
-    const {weekday, extra, extraPlus, selectRecipe } = this.props;
+    const {weekday, extra, extraPlus, selectRecipe, store} = this.props;
     const {recipes, isSearchFoodModalOpen, isShoppingListModalOpen, loading } = this.state;
 
     let day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -134,7 +136,7 @@ class CardExtra extends Component {
                       <AccordionItem key={key} className="accordion-backlog" title={this.state.backlog[key].text}>
                         <div>
 
-                          <form className="container" value={key} onSubmit={this.handleFormSubmit}>
+                          <form className="container" value={key} onSubmit={this.handleFormSubmit(store)}>
                             <select name="day" value={this.state.daySelected} onChange={this.handleDayChange}	className="form-select theme-blue">
                                  { day.map(opt => {
                                        return (
@@ -151,7 +153,7 @@ class CardExtra extends Component {
                                     })
                                 }
                             </select>
-                            <button value={key}  className="button btn"><span value={key}>Submit</span></button>
+                            <button value={key}  onClick={this.changeRecipe} className="button btn"><span value={key}>Submit</span></button>
                             <button onClick={() => this.removeRecipe(key, weekday)} className="button btn"><span>Remove</span></button>
                           </form>
                         </div>
