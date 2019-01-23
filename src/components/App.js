@@ -3,13 +3,46 @@ import '../style/App.scss';
 import Card from './Card';
 import CardExtra from './CardExtra';
 import * as moment from 'moment';
+import Cookies from 'universal-cookie';
 class App extends Component {
 
 
   constructor(props) {
     super(props);
     this.state = {
+      startOfWeek: moment().startOf('isoWeek'),
+      endOfWeek: moment().endOf('isoWeek'),
+      weeklyRecipes: this.getAll(),
     };
+  }
+  getAll(){
+    const cookies = new Cookies();
+    const mealType = ['Breakfast', 'Lunch', 'Dinner', 'Snacks']
+    const days = this.getDays();
+    let data = {};
+    let meals = {}
+    days.forEach(function(weekday) {
+      let dayMeals = {};
+      mealType.forEach(function(meal){
+        dayMeals[meal] = cookies.get(weekday["day"] + "-" + meal);
+      })
+      meals[weekday["day"]] = dayMeals;
+    })
+    data['days'] = days;
+    data['mealType'] = mealType;
+    data['meals'] = meals;
+    return data;
+  }
+
+  getDays(){
+    const days = [];
+    let day = moment().startOf('isoWeek');
+
+      while (day <= moment().endOf('isoWeek')) {
+        days.push({day: day.format('dddd').toString(), date:day.format("Do MMMM YYYY").toString(), });
+        day = day.clone().add(1, 'd');
+      }
+    return days;
   }
 
   getWeekNumber(d) {
@@ -18,26 +51,19 @@ class App extends Component {
     var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
     var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
     return [d.getUTCFullYear(), weekNo];
-}
+  }
+
+  changeRecipe(meal, weekday){
+    //let data = this.state.weeklyRecipes;
+  //  data["meals"][meal][weekday] = "test";
+    let data = "test"
+    this.setState(() => ({weeklyRecipes: data}));
+  }
 
 
   render() {
 
     var result = this.getWeekNumber(new Date());
-    //var nextResult = parseInt(result[1]) + 1;
-
-    const startOfWeek = moment().startOf('isoWeek');
-    const endOfWeek = moment().endOf('isoWeek');
-
-    const days = [];
-    let day = startOfWeek;
-
-      while (day <= endOfWeek) {
-        days.push({day: day.format('dddd').toString(), date:day.format("Do MMMM YYYY").toString(), });
-        day = day.clone().add(1, 'd');
-      }
-
-
     return (
       <div className="App">
         <header className="App-header">
@@ -48,12 +74,12 @@ class App extends Component {
             Week {result[1]}
           </h2>
           <h4>
-            {startOfWeek.format('Do MMMM YYYY').toString()}&nbsp;-&nbsp;{endOfWeek.format('Do MMMM YYYY').toString()}
+            {this.state.startOfWeek.format('Do MMMM YYYY').toString()}&nbsp;-&nbsp;{this.state.endOfWeek.format('Do MMMM YYYY').toString()}
           </h4>
         </header>
           <div className="card_container">
-            {days.map((data, idx) =>
-                <Card key={idx} weekday={data.day} weekdayDate={data.date} isWeekday={true}/>
+            {this.state.weeklyRecipes.days.map((data, idx) =>
+                <Card changeRecipe={this.changeRecipe} key={idx} weekday={data.day} weekdayDate={data.date} isWeekday={true} mealType={this.state.weeklyRecipes.mealType} meals={this.state.weeklyRecipes.meals[data.day]}/>
             )}
             <CardExtra key={'extra'} weekday={'Extra'} extra={'Save Recipes'} extraPlus={"In Case you are feelin' it"}/>
           </div>

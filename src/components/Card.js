@@ -23,6 +23,7 @@ class Card extends Component {
     this.openSearchFoodModal = this.openSearchFoodModal.bind(this);
     this.closeSearchFoodModal = this.closeSearchFoodModal.bind(this);
     this.openRecipeDetailPage = this.openRecipeDetailPage.bind(this);
+    this.changeRecipe = props.changeRecipe.bind(this);
 
     this.state = {
       isSearchFoodModalOpen: false,
@@ -82,7 +83,8 @@ class Card extends Component {
     return meals;
   }
 
-  removeRecipe(meal, weekday) {
+  removeRecipe(meal, weekday, changeRecipe) {
+    this.changeRecipe(meal, weekday);
     const cookies = new Cookies();
     this.setState(() => ({isRecipeInfoOpen: false}));
     cookies.remove(weekday + "-" + meal)
@@ -125,12 +127,9 @@ class Card extends Component {
   }
 
   render() {
-    const {weekday, weekdayDate, selectRecipe} = this.props;
+    const {changeRecipe, weekday, weekdayDate, selectRecipe, meals, mealType} = this.props;
     const {recipes, isSearchFoodModalOpen, loading, isRecipeDetailPageOpen} = this.state;
 
-    const mealType = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
-
-    let meals = this.fillMeals(weekday, mealType);
 
     return (<div className="card-container">
       <div className="card">
@@ -183,7 +182,7 @@ class Card extends Component {
                                     <p>{meal}</p>
                                   </div>
                                   <div className="card_info_type_recipe_menu_button">
-                                    <button onClick={() => this.removeRecipe(meal, weekday)} className="recipeButton">
+                                    <button onClick={() => this.removeRecipe(meal, weekday, changeRecipe)} className="recipeButton">
                                       <MdClear size={20}/></button>
                                     <button onClick={() => this.openSearchFoodModal(meal, weekday)} className="recipeButton">
                                       <MdCached size={20}/></button>
