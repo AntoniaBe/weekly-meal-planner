@@ -44,3 +44,17 @@ button:focus {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.full_list{
+  padding: 2.5%;
+  min-width: 500px;
+  width: 100%;
+  h1 {
+    padding-bottom: 3%;
+  }
+  .shopping-container{
+    font-family: $text-font;
+  }
+  input{
+    margin-right: 10px;
+  }
+}
