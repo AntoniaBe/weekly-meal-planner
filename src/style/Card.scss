@@ -43,7 +43,7 @@ p {
 }
 
 .card_weekday, .card_backlog {
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid $border_color;
 }
 
 .card_backlog,
@@ -100,7 +100,7 @@ img {
 }
 
 .add-meal-btn {
-  border: 1px solid #aaa;
+  border: 1px solid $border_color;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -390,17 +390,17 @@ select {
   font: 400 12px/1.3 sans-serif;
   -webkit-appearance: none;
   appearance: none;
-  color: var(--baseFg);
-  border: 1px solid var(--baseFg);
+  color: #fff;
+  border: 1px solid $border_color;
   line-height: 1;
   outline: 0;
   padding: 0.65em 2.5em 0.55em 0.75em;
   border-radius: var(--radius);
-  background-color: var(--baseBg);
-  background-image: linear-gradient(var(--baseFg), var(--baseFg)),
-    linear-gradient(-135deg, transparent 50%, var(--accentBg) 50%),
-    linear-gradient(-225deg, transparent 50%, var(--accentBg) 50%),
-    linear-gradient(var(--accentBg) 42%, var(--accentFg) 42%);
+  background-color: $dark_base;
+  background-image: linear-gradient(#fff, #fff),
+    linear-gradient(-135deg, transparent 50%, $highlight_color 50%),
+    linear-gradient(-225deg, transparent 50%, $highlight_color 50%),
+    linear-gradient($highlight_color 42%, $border_color 42%);
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-size: 1px 100%, 20px 22px, 20px 22px, 20px 100%;
   background-position: right 20px center, right bottom, right bottom, right bottom;
@@ -408,23 +408,19 @@ select {
 }
 
 select:hover {
-  background-image: linear-gradient(var(--accentFg), var(--accentFg)),
-    linear-gradient(-135deg, transparent 50%, var(--accentFg) 50%),
-    linear-gradient(-225deg, transparent 50%, var(--accentFg) 50%),
-    linear-gradient(var(--accentFg) 42%, var(--accentBg) 42%);
+  background-image: linear-gradient($border_color, $border_color),
+    linear-gradient(-135deg, transparent 50%, $border_color 50%),
+    linear-gradient(-225deg, transparent 50%, $border_color 50%),
+    linear-gradient($border_color 42%, $highlight_color 42%);
 }
 
 select:active {
-  background-image: linear-gradient(var(--accentFg), var(--accentFg)),
-    linear-gradient(-135deg, transparent 50%, var(--accentFg) 50%),
-    linear-gradient(-225deg, transparent 50%, var(--accentFg) 50%),
-    linear-gradient(var(--accentFg) 42%, var(--accentBg) 42%);
-  border-color: var(--accentFg);
+  background-image: linear-gradient($border_color, $border_color),
+    linear-gradient(-135deg, transparent 50%, $border_color 50%),
+    linear-gradient(-225deg, transparent 50%, $border_color 50%),
+    linear-gradient($border_color 42%, $highlight_color 42%);
+  border-color: $border_color;
 }
 .theme-blue{
   --radius: 2em;
-  --baseFg: #fff;
-  --baseBg: #446054;
-  --accentFg: #fff;
-  --accentBg: #446054;
 }

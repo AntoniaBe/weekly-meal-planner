@@ -23,7 +23,7 @@
 
   button {
     background-color: $base_color;
-    border-color: $base_color;
+    border-color: $border_color;
     border-width: 1px;
     cursor: pointer;
   }
@@ -36,7 +36,7 @@
 
   input:focus {
     outline: none !important;
-    border: 1px solid $base_color;
+    border: 1px solid $border_color;
     box-shadow: 0 0 10px $base_color;
   }
 }
