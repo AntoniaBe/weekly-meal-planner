@@ -4,6 +4,9 @@ import { fetchRecipes } from '../utils/apiCall';
 import '../style/Modal.scss';
 import '../style/SearchFoodModal.scss';
 import AccordionContainer from './AccordionContainer';
+import {
+    MdSave
+} from "react-icons/md";
 import Cookies from 'universal-cookie';
 
 class ShoppingList extends Component {
@@ -39,12 +42,59 @@ class ShoppingList extends Component {
     cookies.set("shoppinglist", data, { path: '/'});
   };
 
+    removeAll = (e) => {
+        const cookies = new Cookies();
+        this.setState(() => ({
+            list: {}
+        }));
+        cookies.remove("shoppinglist");
+    };
+    removeChecked = (e) => {
+        const cookies = new Cookies();
+        let data = cookies.get("shoppinglist");
+        for(let i = 0; i<Object.keys(data).length; i++){
+            if(data[i].checked){
+                data.splice(i,i-1);
+            }
+        }
+        this.setState(() => ({
+            list: data
+        }));
+        cookies.set("shoppinglist", data, { path: '/'});
+    };
+
+    download() {
+        const cookies = new Cookies();
+        const list =  cookies.get("shoppinglist");
+        let data = "";
+        for (let i = 0; i < Object.keys(list).length; i++){
+            data += list[i].text;
+            data += '\n';
+        }
+        var file = new Blob([data], {type: "text/plain"});
+        if (window.navigator.msSaveOrOpenBlob) // IE10+
+            window.navigator.msSaveOrOpenBlob(file, "ShoppingList");
+        else { // Others
+            var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = "ShoppingList";
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 0);
+        }
+    }
+
   render() {
 
     const {
       isOpen,
       onClose,
     } = this.props;
+    console.log(this.state.list);
     return (
       <Modal className='modal' open={isOpen} onClose={onClose} ariaHideApp={false}>
         {
@@ -63,6 +113,9 @@ class ShoppingList extends Component {
                         </div>
                       )
                     }
+                    <button className={"button btn "} onClick={this.removeAll}>Remove All</button>
+                    <button className={"button btn "} onClick={this.removeChecked}>Remove Checked</button>
+                    <button className={"button btn download "} onClick={this.download}><MdSave size={18}/></button>
                 </div>
               </div>
         }
